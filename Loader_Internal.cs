@@ -37,10 +37,10 @@ namespace FreeSWITCH.Managed
                 return File.Exists(path) ? Assembly.LoadFile(path) : null;
             };
 
-            Loader.Run = Loader_Internal.Run;
-            Loader.Execute = Loader_Internal.Execute;
-            Loader.ExecuteBackground = Loader_Internal.ExecuteBackground;
-            Loader.Reload = Loader_Internal.Reload;
+            CoreDelegates.Run = Loader_Internal.Run;
+            CoreDelegates.Execute = Loader_Internal.Execute;
+            CoreDelegates.ExecuteBackground = Loader_Internal.ExecuteBackground;
+            CoreDelegates.Reload = Loader_Internal.Reload;
 
             configureWatcher();
 

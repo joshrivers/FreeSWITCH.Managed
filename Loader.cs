@@ -41,42 +41,14 @@ using System.Runtime.InteropServices;
 
 namespace FreeSWITCH
 {
-    internal static class Loader
+    public static class Loader
     {
-        // Thunks - defining the delegate format for interop with unmanaged code. See global delegates in mod_managed.cpp.
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool ExecuteDelegate(string cmd, IntPtr streamH, IntPtr eventH);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool ExecuteBackgroundDelegate(string cmd);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool RunDelegate(string cmd, IntPtr session);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool ReloadDelegate(string cmd);
-
-        // Internal delegates to be references from unmanaged code. These directly pass through to the public delegates.
-        // FreeSWITCH core will dump if the public delegates are set to null.
-        private static readonly ExecuteDelegate execute = (cmd, streamH, eventH) => Loader.Execute(cmd, streamH, eventH);
-        private static readonly ExecuteBackgroundDelegate executeBackground = (cmd) => Loader.ExecuteBackground(cmd);
-        private static readonly RunDelegate run = (cmd, session) => Loader.Run(cmd, session);
-        private static readonly ReloadDelegate reload = (cmd) => Loader.Reload(cmd);
-
-        // Public delegates. These are the core extension points to allow managed code to be executed from FreeSWITCH.
-        public static ExecuteDelegate Execute { get; set; }
-        public static ExecuteBackgroundDelegate ExecuteBackground { get; set; }
-        public static RunDelegate Run { get; set; }
-        public static ReloadDelegate Reload { get; set; }
-
-        // Extern InitManagedDelegates - executes function fo the same name in mod_managed.cpp.
-        //SWITCH_MOD_DECLARE_NONSTD(void) InitManagedDelegates(runFunction run, executeFunction execute, executeBackgroundFunction executeBackground, reloadFunction reload)
-        [DllImport("mod_managed", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void InitManagedDelegates(RunDelegate run, ExecuteDelegate execute, ExecuteBackgroundDelegate executeBackground, ReloadDelegate reload);
-
         // Load() method is found by reflection and run from mod_managed.cpp on module load. The only purpose of this method
         // is to pass pointers to the internal delegates to the unmanaged code and to instantiate a managed class to handle
         // calls to those delegates.
         public static bool Load()
         {
-            Loader.InitManagedDelegates(Loader.run, Loader.execute, Loader.executeBackground, Loader.reload);
+            CoreDelegates.InitializeCoreDelegates();
             return FreeSWITCH.Managed.Loader_Internal.Load();
         }
     }
