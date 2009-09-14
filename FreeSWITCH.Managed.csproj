@@ -47,9 +47,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiPluginExecutor.cs" />
+    <Compile Include="AppPluginExecutor.cs" />
+    <Compile Include="AsmPluginManager.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ChannelVariables.cs" />
-    <Compile Include="Loader_Internal.cs" />
+    <Compile Include="DefaultPluginOverseer\CommandStringExtensions.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultAppDomainSetup.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultDirectoryController.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultExecuteBackgroundCommand.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultExecuteCommand.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultLogger.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultPluginOverseer.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultReloadCommand.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultRunCommand.cs" />
+    <Compile Include="DefaultPluginOverseer\IDirectoryController.cs" />
+    <Compile Include="DefaultPluginOverseer\ManagedDirectoryWatcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DefaultPluginOverseer\PluginFileLoadQueue.cs" />
+    <Compile Include="DefaultPluginOverseer\PluginFileLoadTimer.cs" />
+    <Compile Include="Directors\ExecuteBackgroundCommandDirector.cs" />
+    <Compile Include="Directors\ExecuteCommandDirector.cs" />
+    <Compile Include="Directors\IExecuteBackgroundCommand.cs" />
+    <Compile Include="Directors\IExecuteCommand.cs" />
+    <Compile Include="Directors\ILogger.cs" />
+    <Compile Include="Directors\IReloadCommand.cs" />
+    <Compile Include="Directors\IRunCommand.cs" />
+    <Compile Include="Directors\LogDirector.cs" />
+    <Compile Include="Directors\ReloadCommandDirector.cs" />
+    <Compile Include="Directors\RunCommandDirector.cs" />
+    <Compile Include="CoreDelegates.cs" />
+    <Compile Include="DefaultLoader.cs" />
+    <Compile Include="FileLoader.cs" />
+    <Compile Include="PluginExecutor.cs" />
+    <Compile Include="Trash\PluginInfo.cs" />
+    <Compile Include="Types\PluginInfoList.cs" />
+    <Compile Include="Types\SynchronizedDictionary.cs" />
+    <Compile Include="Types\SynchronizedList.cs" />
+    <Compile Include="DefaultPluginOverseer\DefaultPluginDirectoryWatcher.cs" />
     <Compile Include="ManagedSession.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Extensions.cs" />

@@ -38,6 +38,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
@@ -49,7 +50,7 @@ namespace FreeSWITCH
         public static bool Load()
         {
             CoreDelegates.InitializeCoreDelegates();
-            return FreeSWITCH.Managed.Loader_Internal.Load();
+            return DefaultLoader.Loader.Load();
         }
     }
 }
