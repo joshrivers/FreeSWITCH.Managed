@@ -29,7 +29,7 @@ namespace FreeSWITCH.Managed
                 logger.Error(string.Format("Managed directory not found: {0}", directories.PluginDirectoryPath));
                 return false;
             }
-
+            filesToLoad.Initialize();
             loadTimer.Start();
             return true;
         }

@@ -41,7 +41,8 @@ namespace FreeSWITCH.Managed
             this.ExecuteCommandDirector = new ExecuteCommandDirector(LogDirector);
             this.ExecuteBackgroundCommandDirector = new ExecuteBackgroundCommandDirector(LogDirector);
             this.ReloadCommandDirector = new ReloadCommandDirector(LogDirector);
-            this.PluginOverSeer= new DefaultPluginOverseer(this, new DefaultDirectoryController(),this.LogDirector);
+            DefaultDirectoryController dc = new DefaultDirectoryController();
+            this.PluginOverSeer = new DefaultPluginOverseer(this, dc, this.LogDirector);
         }
 
         public bool Load()
@@ -51,6 +52,7 @@ namespace FreeSWITCH.Managed
             CoreDelegates.ExecuteBackground = this.ExecuteBackgroundCommandDirector.ExecuteBackground;
             CoreDelegates.Reload = this.ReloadCommandDirector.Reload;
             return this.PluginOverSeer.Load();
+            return true;
         }
     }
 }

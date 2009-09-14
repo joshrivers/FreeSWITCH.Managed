@@ -14,8 +14,17 @@ namespace FreeSWITCH.Managed
 
         public DefaultDirectoryController()
         {
-            this.PluginDirectoryPath = Path.Combine(Native.freeswitch.SWITCH_GLOBAL_dirs.mod_dir, "managed");
-            this.ShadowDirectoryPath = Path.Combine(this.PluginDirectoryPath, "shadow");
+            try
+            {
+                this.PluginDirectoryPath = Path.Combine(Native.freeswitch.SWITCH_GLOBAL_dirs.mod_dir, "managed");
+                this.ShadowDirectoryPath = Path.Combine(this.PluginDirectoryPath, "shadow");
+            }
+            catch
+            {
+                this.PluginDirectoryPath = Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid().ToString());
+                Directory.CreateDirectory(this.PluginDirectoryPath);
+                this.ShadowDirectoryPath = Path.Combine(this.PluginDirectoryPath, "shadow");
+            }
         }
 
         public bool PluginDirectoryExists()
