@@ -52,7 +52,6 @@ namespace FreeSWITCH.Managed
             CoreDelegates.ExecuteBackground = this.ExecuteBackgroundCommandDirector.ExecuteBackground;
             CoreDelegates.Reload = this.ReloadCommandDirector.Reload;
             return this.PluginOverSeer.Load();
-            return true;
         }
     }
 }
