@@ -8,6 +8,12 @@ namespace FreeSWITCH.Managed
 {
     public class DefaultExecuteBackgroundCommand : IExecuteBackgroundCommand
     {
+        public IModuleListContainer moduleListContainer;
+        public DefaultExecuteBackgroundCommand(IModuleListContainer moduleListContainer)
+        {
+            this.moduleListContainer = moduleListContainer;
+        }
+
         public bool ExecuteBackground(string command)
         {
             try
@@ -16,7 +22,7 @@ namespace FreeSWITCH.Managed
                 if (parsed == null) return false;
                 var fullName = parsed[0];
                 var args = parsed[1];
-                var execs = FileLoader.apiExecs.ToDictionary();
+                var execs = moduleListContainer.ModuleList.apiExecs.ToDictionary();
                 ApiPluginExecutor exec;
                 if (!execs.TryGetValue(fullName, out exec))
                 {

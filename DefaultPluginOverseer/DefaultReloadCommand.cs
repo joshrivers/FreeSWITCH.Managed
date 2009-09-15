@@ -9,22 +9,27 @@ namespace FreeSWITCH.Managed
     public class DefaultReloadCommand : IReloadCommand
     {
         private string pluginDirectoryPath;
+        private IModuleListContainer moduleListContainer;
+        private IModuleLoader moduleLoader;
 
-        public DefaultReloadCommand(string pluginDirectoryPath)
+        public DefaultReloadCommand(string pluginDirectoryPath, IModuleListContainer moduleListContainer, IModuleLoader moduleLoader)
         {
+            this.moduleListContainer = moduleListContainer;
+            this.moduleLoader = moduleLoader;
             this.pluginDirectoryPath = pluginDirectoryPath;
         }
+
         public bool Reload(string command)
         {
             try
             {
                 if (Path.IsPathRooted(command))
                 {
-                    FileLoader.loadFile(command);
+                    moduleLoader.LoadModule(command);
                 }
                 else
                 {
-                    FileLoader.loadFile(Path.Combine(this.pluginDirectoryPath, command));
+                    moduleLoader.LoadModule(Path.Combine(this.pluginDirectoryPath, command));
                 }
                 return true;
             }

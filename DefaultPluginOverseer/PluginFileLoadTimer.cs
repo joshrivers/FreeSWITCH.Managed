@@ -11,10 +11,12 @@ namespace FreeSWITCH.Managed
     {
         private Timer loadTick;
         private PluginFileLoadQueue filesToLoad;
+        private IModuleLoader moduleLoader;
 
-        public PluginFileLoadTimer(PluginFileLoadQueue filesToLoad)
+        public PluginFileLoadTimer(PluginFileLoadQueue filesToLoad, IModuleLoader moduleLoader)
         {
             this.filesToLoad = filesToLoad;
+            this.moduleLoader = moduleLoader;
             loadTick = new System.Threading.Timer(this.OnTick);
         }
 
@@ -36,7 +38,7 @@ namespace FreeSWITCH.Managed
             foreach (var file in items)
             {
                 //Todo: eliminate this static reference.
-                FileLoader.loadFile(file);
+                moduleLoader.LoadModule(file);
             }
         }
 

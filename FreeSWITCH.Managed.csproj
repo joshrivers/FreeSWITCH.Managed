@@ -47,12 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultPluginOverseer\IModuleListContainer.cs" />
+    <Compile Include="DefaultPluginOverseer\IModuleLoader.cs" />
     <Compile Include="Trash\ApiBackgroundContext.cs" />
     <Compile Include="Trash\ApiContext.cs" />
     <Compile Include="Trash\ApiPluginExecutor.cs" />
     <Compile Include="Trash\AppContext.cs" />
     <Compile Include="Trash\AppPluginExecutor.cs" />
-    <Compile Include="Trash\AsmPluginManager.cs" />
+    <Compile Include="Trash\AsmModuleProxy.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Trash\ChannelVariables.cs" />
     <Compile Include="DefaultPluginOverseer\CommandStringExtensions.cs" />
@@ -93,7 +95,7 @@
     <Compile Include="Trash\ScriptContextType.cs" />
     <Compile Include="Trash\Module.cs" />
     <Compile Include="Trash\PluginOptions.cs" />
-    <Compile Include="Types\PluginInfoList.cs" />
+    <Compile Include="Types\ModuleList.cs" />
     <Compile Include="Types\SynchronizedDictionary.cs" />
     <Compile Include="Types\SynchronizedList.cs" />
     <Compile Include="DefaultPluginOverseer\DefaultPluginDirectoryWatcher.cs" />
@@ -102,8 +104,8 @@
     <Compile Include="Trash\Extensions.cs" />
     <Compile Include="Native\Log.cs" />
     <Compile Include="Trash\IPluginOptionsProvider.cs" />
-    <Compile Include="Trash\PluginManager.cs" />
-    <Compile Include="Trash\ScriptPluginManager.cs" />
+    <Compile Include="Trash\ModuleProxy.cs" />
+    <Compile Include="Trash\ScriptModuleProxy.cs" />
     <Compile Include="swig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

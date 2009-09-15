@@ -14,12 +14,12 @@ namespace FreeSWITCH.Managed
         public PluginFileLoadQueue filesToLoad { get; private set; }
         public PluginFileLoadTimer loadTimer { get; private set; }
 
-        public DefaultPluginDirectoryWatcher(IDirectoryController directories, ILogger logger)
+        public DefaultPluginDirectoryWatcher(IDirectoryController directories, ILogger logger, IModuleLoader moduleLoader)
         {
             this.directories = directories;
             this.logger = logger;
             this.filesToLoad = new PluginFileLoadQueue(directories.PluginDirectoryPath);
-            this.loadTimer = new PluginFileLoadTimer(filesToLoad);
+            this.loadTimer = new PluginFileLoadTimer(filesToLoad,moduleLoader);
         }
         public bool Initialize()
         {

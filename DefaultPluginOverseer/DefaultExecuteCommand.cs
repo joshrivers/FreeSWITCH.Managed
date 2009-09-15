@@ -8,11 +8,13 @@ namespace FreeSWITCH.Managed
 {
     public class DefaultExecuteCommand : IExecuteCommand
     {
+        private IModuleListContainer moduleListContainer;
 
-        public DefaultExecuteCommand()
+        public DefaultExecuteCommand(IModuleListContainer moduleListContainer)
         {
-            
+            this.moduleListContainer = moduleListContainer;
         }
+
         public bool Execute(string command, IntPtr streamHandle, IntPtr eventHandle)
         {
             try
@@ -23,7 +25,7 @@ namespace FreeSWITCH.Managed
                 var fullName = parsed[0];
                 var args = parsed[1];
 
-                var execs = FileLoader.apiExecs.ToDictionary();
+                var execs = moduleListContainer.ModuleList.apiExecs.ToDictionary();
                 ApiPluginExecutor exec;
                 if (!execs.TryGetValue(fullName, out exec))
                 {

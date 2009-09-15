@@ -8,6 +8,12 @@ namespace FreeSWITCH.Managed
 {
     public class DefaultRunCommand : IRunCommand
     {
+        public IModuleListContainer moduleListContainer;
+        public DefaultRunCommand(IModuleListContainer moduleListContainer)
+        {
+            this.moduleListContainer = moduleListContainer;
+        }
+
         public bool Run(string command, IntPtr sessionHandle)
         {
             try
@@ -20,7 +26,7 @@ namespace FreeSWITCH.Managed
                 var args = parsed[1];
 
                 AppPluginExecutor exec;
-                var execs = FileLoader.appExecs.ToDictionary();
+                var execs = moduleListContainer.ModuleList.appExecs.ToDictionary();
                 if (!execs.TryGetValue(fullName, out exec))
                 {
                     Log.WriteLine(LogLevel.Error, "App plugin {0} not found.", fullName);

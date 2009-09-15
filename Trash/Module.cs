@@ -55,8 +55,7 @@ namespace FreeSWITCH.Managed
                 if (!Proxy.Load(FileName))
                 {
                     AppDomain.Unload(Domain);
-                    FileLoader.removeReferencesToModuleAndPlugin(FileName);
-                    return;
+                    throw new Exception("Unable to Initialize Module");
                 }
             }
             catch (Exception ex)
@@ -64,8 +63,7 @@ namespace FreeSWITCH.Managed
                 // On an exception, we will unload the current file so an old copy doesnt stay active
                 logger.Alert(string.Format("Exception loading {0}: {1}", FileName, ex.ToString()));
                 AppDomain.Unload(Domain);
-                FileLoader.removeReferencesToModuleAndPlugin(FileName);
-                return;
+                throw;
             }
         }
 
