@@ -25,7 +25,7 @@ namespace FreeSWITCH.Managed
         public void Initialize()
         {
             Type proxyType;
-            switch (Path.GetExtension(FileName).ToLowerInvariant())
+            switch (FileName.GetLoweredFileExtension())
             {
                 case ".dll":
                     proxyType = typeof(AsmModuleProxy);
@@ -49,10 +49,12 @@ namespace FreeSWITCH.Managed
 
             // Create domain and load PM inside
             this.Domain = AppDomain.CreateDomain(setup.ApplicationName, null, setup);
-            
+
             try
             {
                 Proxy = (ModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
+                DefaultLoader.Loader.PluginOverSeer.Logger.Notice(string.Format("Module.Initialize() " + FileName.GetLoweredFileExtension()));
+                //Proxy.logger = logger;
                 if (!Proxy.Load(FileName))
                 {
                     AppDomain.Unload(Domain);

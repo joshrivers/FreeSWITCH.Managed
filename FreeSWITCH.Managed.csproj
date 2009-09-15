@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultPluginOverseer\AssemblyComposers\DllAssemblyComposer.cs" />
+    <Compile Include="DefaultPluginOverseer\AssemblyComposers\DllComposerFactory.cs" />
+    <Compile Include="DefaultPluginOverseer\AssemblyComposers\ScriptAssemblyComposer.cs" />
+    <Compile Include="DefaultPluginOverseer\AssemblyComposers\ScriptComposerFactory.cs" />
     <Compile Include="DefaultPluginOverseer\IModuleListContainer.cs" />
     <Compile Include="DefaultPluginOverseer\IModuleLoader.cs" />
     <Compile Include="Trash\ApiBackgroundContext.cs" />

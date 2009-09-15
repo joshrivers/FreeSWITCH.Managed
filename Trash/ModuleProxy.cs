@@ -36,6 +36,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.IO;
+using FreeSWITCH.Managed;
 
 namespace FreeSWITCH {
 
@@ -43,7 +44,7 @@ namespace FreeSWITCH {
         public override object InitializeLifetimeService() {
             return null;
         }
-
+        //public ILogger logger;
         public List<ApiPluginExecutor> ApiExecutors { get { return _apiExecutors; } }
         readonly List<ApiPluginExecutor> _apiExecutors = new List<ApiPluginExecutor>();
 
@@ -54,6 +55,8 @@ namespace FreeSWITCH {
         bool isLoaded = false;
 
         public bool Load(string fileName) {
+            DefaultLoader.Loader.PluginOverSeer.LoadForAllAppDomains();
+            DefaultLoader.Loader.PluginOverSeer.Logger.Notice(string.Format("ModuleProxy.Load " + fileName.GetLoweredFileExtension()));
             Console.WriteLine("Loading {0} from domain {1}", fileName, AppDomain.CurrentDomain.FriendlyName);
             if (isLoaded) throw new InvalidOperationException("PluginManager has already been loaded.");
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("file cannot be null or empty.");

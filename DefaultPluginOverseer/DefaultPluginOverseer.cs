@@ -15,7 +15,7 @@ namespace FreeSWITCH.Managed
         public DefaultPluginDirectoryWatcher Watcher { get; private set; }
         private ResolveEventHandler defaultEventResolver;
         public ModuleList ModuleList { get; private set; }
-        public AssemblyComposerFactoryDictionary AssemblyComposers {get; private set;}
+        public AssemblyComposerFactoryDictionary AssemblyComposers { get; private set; }
 
         public DefaultPluginOverseer(IDefaultServiceLocator locator, IDirectoryController directories, LogDirector logger)
         {
@@ -30,6 +30,7 @@ namespace FreeSWITCH.Managed
 
         public bool Load()
         {
+            LoadForAllAppDomains();
             DefaultRunCommand runcommand = new DefaultRunCommand(this);
             this.Locator.RunCommandDirector.Commands.Add(runcommand);
 
@@ -39,16 +40,31 @@ namespace FreeSWITCH.Managed
             DefaultExecuteBackgroundCommand executebackgroundcommmand = new DefaultExecuteBackgroundCommand(this);
             this.Locator.ExecuteBackgroundCommandDirector.Commands.Add(executebackgroundcommmand);
 
-            DefaultReloadCommand reloadcommand = new DefaultReloadCommand(this.Directories.PluginDirectoryPath,this,this);
+            DefaultReloadCommand reloadcommand = new DefaultReloadCommand(this.Directories.PluginDirectoryPath, this, this);
             this.Locator.ReloadCommandDirector.Commands.Add(reloadcommand);
-
-            this.Logger.Loggers.Add(new DefaultLogger());
 
             this.AttachDefaultAssemblyResolver();
 
             return this.Watcher.Initialize();
         }
 
+        public void LoadForAllAppDomains()
+        {
+            InitializeAssemblyComposers();
+            this.Logger.Loggers.Add(new DefaultLogger());
+        }
+
+        private void InitializeAssemblyComposers()
+        {
+            var factory1 = new DllComposerFactory();
+            var factory2 = new ScriptComposerFactory();
+            this.AssemblyComposers.Add(".dll", factory1);
+            this.AssemblyComposers.Add(".exe", factory1);
+            this.AssemblyComposers.Add(".fsx", factory2);
+            this.AssemblyComposers.Add(".csx", factory2);
+            this.AssemblyComposers.Add(".vbx", factory2);
+            this.AssemblyComposers.Add(".jsx", factory2);
+        }
 
         public void AttachDefaultAssemblyResolver()
         {

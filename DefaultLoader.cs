@@ -15,7 +15,7 @@ namespace FreeSWITCH.Managed
         DefaultPluginOverseer PluginOverSeer { get; }
     }
 
-    public class DefaultLoader : IDefaultServiceLocator
+    public class DefaultLoader : MarshalByRefObject, IDefaultServiceLocator
     {
         // Thread-safe singleton implementation from: http://www.yoda.arachsys.com/csharp/singleton.html
         private static readonly DefaultLoader loader = new DefaultLoader();
