@@ -15,6 +15,7 @@ namespace FreeSWITCH.Managed
         public DefaultPluginDirectoryWatcher Watcher { get; private set; }
         private ResolveEventHandler defaultEventResolver;
         public ModuleList ModuleList { get; private set; }
+        public AssemblyComposerFactoryDictionary AssemblyComposers {get; private set;}
 
         public DefaultPluginOverseer(IDefaultServiceLocator locator, IDirectoryController directories, LogDirector logger)
         {
@@ -24,6 +25,7 @@ namespace FreeSWITCH.Managed
             this.Watcher = new DefaultPluginDirectoryWatcher(this.Directories, this.Logger, this);
             this.defaultEventResolver = new ResolveEventHandler(DefaultAssemblyResolver);
             this.ModuleList = new ModuleList();
+            this.AssemblyComposers = new AssemblyComposerFactoryDictionary();
         }
 
         public bool Load()
@@ -44,8 +46,6 @@ namespace FreeSWITCH.Managed
 
             this.AttachDefaultAssemblyResolver();
 
-            FileLoader.directories = this.Directories;
-            FileLoader.logger = this.Logger;
             return this.Watcher.Initialize();
         }
 
@@ -103,7 +103,7 @@ namespace FreeSWITCH.Managed
                     ModuleList.RemoveAll(ModuleList[fileName]);
                     return;
                 }
-                var module = new Module(fileName, FileLoader.logger, FileLoader.directories);
+                var module = new Module(fileName, this.Logger, this.Directories);
                 try
                 {
                     module.Initialize();

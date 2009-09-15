@@ -38,149 +38,22 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
+using FreeSWITCH.Managed;
 
 
 namespace FreeSWITCH
 {
     internal class ScriptModuleProxy : ModuleProxy
     {
-
         protected override bool LoadInternal(string fileName)
         {
-            Assembly asm;
-            if (Path.GetExtension(fileName).ToLowerInvariant() == ".exe")
-            {
-                asm = Assembly.LoadFrom(fileName);
-            }
-            else
-            {
-                asm = compileAssembly(fileName);
-            }
-            if (asm == null) return false;
+            Assembly asm = DefaultLoader.Loader.PluginOverSeer.AssemblyComposers[fileName.GetLoweredFileExtension()].GetComposer().GetAssembly(fileName);
 
-            return processAssembly(fileName, asm);
-        }
+            this.EnsureFreswitchManagedDllReference(asm);
+            asm.EntryPoint.CallEntryPoint();
 
-        Assembly compileAssembly(string fileName)
-        {
-            var comp = new CompilerParameters();
-            var mainRefs = new List<string> { 
-                Path.Combine(Native.freeswitch.SWITCH_GLOBAL_dirs.mod_dir, "FreeSWITCH.Managed.dll"),
-                "System.dll", "System.Xml.dll", "System.Data.dll" 
-            };
-            var extraRefs = new List<string> {
-                "System.Core.dll", 
-                "System.Xml.Linq.dll",
-            };
-            comp.ReferencedAssemblies.AddRange(mainRefs.ToArray());
-            comp.ReferencedAssemblies.AddRange(extraRefs.ToArray());
-            CodeDomProvider cdp;
-            var ext = Path.GetExtension(fileName).ToLowerInvariant();
-            switch (ext)
-            {
-                case ".fsx":
-                    cdp = CodeDomProvider.CreateProvider("f#");
-                    break;
-                case ".csx":
-                    cdp = new Microsoft.CSharp.CSharpCodeProvider(new Dictionary<string, string> { { "CompilerVersion", "v3.5" } });
-                    break;
-                case ".vbx":
-                    cdp = new Microsoft.VisualBasic.VBCodeProvider(new Dictionary<string, string> { { "CompilerVersion", "v3.5" } });
-                    break;
-                case ".jsx":
-                    // Have to figure out better JS support
-                    cdp = CodeDomProvider.CreateProvider("js");
-                    extraRefs.ForEach(comp.ReferencedAssemblies.Remove);
-                    break;
-                default:
-                    if (CodeDomProvider.IsDefinedExtension(ext))
-                    {
-                        cdp = CodeDomProvider.CreateProvider(CodeDomProvider.GetLanguageFromExtension(ext));
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                    break;
-            }
-
-            comp.GenerateInMemory = true;
-            comp.GenerateExecutable = true;
-
-            Log.WriteLine(LogLevel.Info, "Compiling {0}", fileName);
-            var res = cdp.CompileAssemblyFromFile(comp, fileName);
-
-            var errors = res.Errors.Cast<CompilerError>().Where(x => !x.IsWarning).ToList();
-            if (errors.Count > 0)
-            {
-                Log.WriteLine(LogLevel.Error, "There were {0} errors compiling {1}.", errors.Count, fileName);
-                foreach (var err in errors)
-                {
-                    if (string.IsNullOrEmpty(err.FileName))
-                    {
-                        Log.WriteLine(LogLevel.Error, "{0}: {1}", err.ErrorNumber, err.ErrorText);
-                    }
-                    else
-                    {
-                        Log.WriteLine(LogLevel.Error, "{0}: {1}:{2}:{3} {4}", err.ErrorNumber, err.FileName, err.Line, err.Column, err.ErrorText);
-                    }
-                }
-                return null;
-            }
-            Log.WriteLine(LogLevel.Info, "File {0} compiled successfully.", fileName);
-            return res.CompiledAssembly;
-        }
-
-        bool processAssembly(string fileName, Assembly asm)
-        {
-            // Call the entrypoint once, to initialize apps that need their main called
-            var entryPoint = getEntryDelegate(asm.EntryPoint);
-            try { entryPoint(); }
-            catch { }
-
-            // Check for loading
-            var allTypes = asm.GetExportedTypes();
-            if (!RunLoadNotify(allTypes)) return false;
-
-            // Scripts can specify classes too
-            var opts = GetOptions(allTypes);
-            AddApiPlugins(allTypes, opts);
-            AddAppPlugins(allTypes, opts);
-
-            // Add the script executors
-            var name = Path.GetFileName(fileName);
-            var aliases = new List<string> { name };
-            this.ApiExecutors.Add(new ApiPluginExecutor(name, aliases, () => new ScriptApiWrapper(entryPoint), opts));
-            this.AppExecutors.Add(new AppPluginExecutor(name, aliases, () => new ScriptAppWrapper(entryPoint), opts));
-
+            this.LoadPlugins(asm, fileName);
             return true;
         }
-
-        static Action getEntryDelegate(MethodInfo entryPoint)
-        {
-            if (!entryPoint.IsPublic || !entryPoint.DeclaringType.IsPublic)
-            {
-                Log.WriteLine(LogLevel.Error, "Entry point: {0}.{1} is not public. This may cause errors with Mono.",
-                    entryPoint.DeclaringType.FullName, entryPoint.Name);
-            }
-            var dm = new DynamicMethod(entryPoint.DeclaringType.Assembly.GetName().Name + "_entrypoint_" + entryPoint.DeclaringType.FullName + entryPoint.Name, null, null, true);
-            var il = dm.GetILGenerator();
-            var args = entryPoint.GetParameters();
-            if (args.Length > 1) throw new ArgumentException("Cannot handle entry points with more than 1 parameter.");
-            if (args.Length == 1)
-            {
-                if (args[0].ParameterType != typeof(string[])) throw new ArgumentException("Entry point paramter must be a string array.");
-                il.Emit(OpCodes.Ldc_I4_0);
-                il.Emit(OpCodes.Newarr, typeof(string));
-            }
-            il.EmitCall(OpCodes.Call, entryPoint, null);
-            if (entryPoint.ReturnType != typeof(void))
-            {
-                il.Emit(OpCodes.Pop);
-            }
-            il.Emit(OpCodes.Ret);
-            return (Action)dm.CreateDelegate(typeof(Action));
-        }
-
     }
 }

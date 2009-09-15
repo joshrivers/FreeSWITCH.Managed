@@ -56,6 +56,8 @@
     <Compile Include="Trash\AppPluginExecutor.cs" />
     <Compile Include="Trash\AsmModuleProxy.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Trash\AssemblyCompiler.cs" />
+    <Compile Include="DefaultPluginOverseer\AssemblyComposers\AssemblyComposerFactoryDictionary.cs" />
     <Compile Include="Trash\ChannelVariables.cs" />
     <Compile Include="DefaultPluginOverseer\CommandStringExtensions.cs" />
     <Compile Include="DefaultPluginOverseer\DefaultAppDomainSetup.cs" />
@@ -84,10 +86,13 @@
     <Compile Include="Directors\RunCommandDirector.cs" />
     <Compile Include="CoreDelegates.cs" />
     <Compile Include="DefaultLoader.cs" />
-    <Compile Include="Trash\FileLoader.cs" />
+    <Compile Include="DefaultPluginOverseer\EntryPointExtensionMethods.cs" />
     <Compile Include="Trash\IApiPlugin.cs" />
     <Compile Include="Trash\IAppPlugin.cs" />
+    <Compile Include="DefaultPluginOverseer\AssemblyComposers\IAssemblyComposer.cs" />
+    <Compile Include="DefaultPluginOverseer\AssemblyComposers\IAssemblyComposerFactory.cs" />
     <Compile Include="Trash\ILoadNotificationPlugin.cs" />
+    <Compile Include="Types\ModuleDoesNotReferenceFreeswitchManagedDllException.cs" />
     <Compile Include="Trash\PluginExecutor.cs" />
     <Compile Include="Trash\Script.cs" />
     <Compile Include="Trash\ScriptApiWrapper.cs" />
@@ -96,6 +101,8 @@
     <Compile Include="Trash\Module.cs" />
     <Compile Include="Trash\PluginOptions.cs" />
     <Compile Include="Types\ModuleList.cs" />
+    <Compile Include="Types\RunNotifyException.cs" />
+    <Compile Include="Types\ScriptDoesNotCompileException.cs" />
     <Compile Include="Types\SynchronizedDictionary.cs" />
     <Compile Include="Types\SynchronizedList.cs" />
     <Compile Include="DefaultPluginOverseer\DefaultPluginDirectoryWatcher.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Reflection;
 
 namespace FreeSWITCH.Managed
 {
@@ -98,5 +99,6 @@ namespace FreeSWITCH.Managed
                                    this.Proxy.AppExecutors.Any(x => (x.PluginOptions & PluginOptions.NoAutoReload) == PluginOptions.NoAutoReload);
             }
         }
+
     }
 }

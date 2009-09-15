@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.IO;
 
 namespace FreeSWITCH {
 
@@ -52,36 +53,65 @@ namespace FreeSWITCH {
 
         bool isLoaded = false;
 
-        public bool Load(string file) {
-            Console.WriteLine("Loading {0} from domain {1}", file, AppDomain.CurrentDomain.FriendlyName);
+        public bool Load(string fileName) {
+            Console.WriteLine("Loading {0} from domain {1}", fileName, AppDomain.CurrentDomain.FriendlyName);
             if (isLoaded) throw new InvalidOperationException("PluginManager has already been loaded.");
-            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file cannot be null or empty.");
+            if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("file cannot be null or empty.");
             if (AppDomain.CurrentDomain.IsDefaultAppDomain()) throw new InvalidOperationException("PluginManager must load in its own AppDomain.");
-            var res = LoadInternal(file);
+            bool result; 
+            try
+            {
+                result = LoadInternal(fileName);
+            }
+            catch (Exception ex)
+            {
+                Log.WriteLine(LogLevel.Info, "Couldn't load {0}: {1}", fileName, ex.Message);
+                result = false;
+            } 
             isLoaded = true;
 
-            if (res) {
-                res = (AppExecutors.Count > 0 || ApiExecutors.Count > 0);
-                if (!res) Log.WriteLine(LogLevel.Info, "No App or Api plugins found in {0}.", file);
+            if (result) {
+                result = (AppExecutors.Count > 0 || ApiExecutors.Count > 0);
+                if (!result) Log.WriteLine(LogLevel.Info, "No App or Api plugins found in {0}.", fileName);
             }
-            return res;
+            return result;
         }
 
         protected abstract bool LoadInternal(string fileName);
 
-        protected bool RunLoadNotify(Type[] allTypes) {
+        protected void RunLoadNotify(Type[] allTypes) {
             // Run Load on all the load plugins
             var ty = typeof(ILoadNotificationPlugin);
             var pluginTypes = allTypes.Where(x => ty.IsAssignableFrom(x) && !x.IsAbstract).ToList();
-            if (pluginTypes.Count == 0) return true;
+            if (pluginTypes.Count == 0) return;
             foreach (var pt in pluginTypes) {
                 var load = ((ILoadNotificationPlugin)Activator.CreateInstance(pt, true));
                 if (!load.Load()) {
-                    Log.WriteLine(LogLevel.Notice, "Type {0} requested no loading. Assembly will not be loaded.", pt.FullName);
-                    return false;
+                    throw new RunNotifyException(string.Format("Type {0} requested no loading. Assembly will not be loaded.", pt.FullName));
                 }
             }
-            return true;
+            return;
+        }
+
+        protected void LoadPlugins(Assembly asm, string fileName)
+        {
+            // Ensure it's a plugin assembly
+            this.EnsureFreswitchManagedDllReference(asm);
+
+            // See if it wants to be loaded
+            var allTypes = asm.GetExportedTypes();
+            RunLoadNotify(allTypes);
+
+            var opts = GetOptions(allTypes);
+
+            AddApiPlugins(allTypes, opts);
+            AddAppPlugins(allTypes, opts);
+
+            // Add the script executors
+            var name = Path.GetFileName(fileName);
+            var aliases = new List<string> { name };
+            this.ApiExecutors.Add(new ApiPluginExecutor(name, aliases, () => new ScriptApiWrapper(asm.EntryPoint.GetEntryDelegate()), opts));
+            this.AppExecutors.Add(new AppPluginExecutor(name, aliases, () => new ScriptAppWrapper(asm.EntryPoint.GetEntryDelegate()), opts));
         }
 
         protected PluginOptions GetOptions(Type[] allTypes) {
@@ -146,6 +176,16 @@ namespace FreeSWITCH {
             il.Emit(OpCodes.Ret);
 
             return (Func<T>)dm.CreateDelegate(typeof(Func<T>));
+        }
+
+        protected void EnsureFreswitchManagedDllReference(Assembly asm)
+        {
+            var ourName = Assembly.GetExecutingAssembly().GetName().Name;
+            if (!asm.GetReferencedAssemblies().Any(n => n.Name == ourName))
+            {
+                throw new
+                    ModuleDoesNotReferenceFreeswitchManagedDllException("Assembly {0} doesn't reference FreeSWITCH.Managed, not loading.");
+            }
         }
     }
 
