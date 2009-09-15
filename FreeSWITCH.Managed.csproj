@@ -47,11 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiPluginExecutor.cs" />
-    <Compile Include="AppPluginExecutor.cs" />
-    <Compile Include="AsmPluginManager.cs" />
+    <Compile Include="Trash\ApiBackgroundContext.cs" />
+    <Compile Include="Trash\ApiContext.cs" />
+    <Compile Include="Trash\ApiPluginExecutor.cs" />
+    <Compile Include="Trash\AppContext.cs" />
+    <Compile Include="Trash\AppPluginExecutor.cs" />
+    <Compile Include="Trash\AsmPluginManager.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChannelVariables.cs" />
+    <Compile Include="Trash\ChannelVariables.cs" />
     <Compile Include="DefaultPluginOverseer\CommandStringExtensions.cs" />
     <Compile Include="DefaultPluginOverseer\DefaultAppDomainSetup.cs" />
     <Compile Include="DefaultPluginOverseer\DefaultDirectoryController.cs" />
@@ -79,21 +82,28 @@
     <Compile Include="Directors\RunCommandDirector.cs" />
     <Compile Include="CoreDelegates.cs" />
     <Compile Include="DefaultLoader.cs" />
-    <Compile Include="FileLoader.cs" />
-    <Compile Include="PluginExecutor.cs" />
-    <Compile Include="Trash\PluginInfo.cs" />
+    <Compile Include="Trash\FileLoader.cs" />
+    <Compile Include="Trash\IApiPlugin.cs" />
+    <Compile Include="Trash\IAppPlugin.cs" />
+    <Compile Include="Trash\ILoadNotificationPlugin.cs" />
+    <Compile Include="Trash\PluginExecutor.cs" />
+    <Compile Include="Trash\Script.cs" />
+    <Compile Include="Trash\ScriptApiWrapper.cs" />
+    <Compile Include="Trash\ScriptAppWrapper.cs" />
+    <Compile Include="Trash\ScriptContextType.cs" />
+    <Compile Include="Trash\Module.cs" />
+    <Compile Include="Trash\PluginOptions.cs" />
     <Compile Include="Types\PluginInfoList.cs" />
     <Compile Include="Types\SynchronizedDictionary.cs" />
     <Compile Include="Types\SynchronizedList.cs" />
     <Compile Include="DefaultPluginOverseer\DefaultPluginDirectoryWatcher.cs" />
-    <Compile Include="ManagedSession.cs" />
+    <Compile Include="Trash\ManagedSession.cs" />
     <Compile Include="Loader.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Log.cs" />
-    <None Include="Demo.csx" />
-    <Compile Include="PluginInterfaces.cs" />
-    <Compile Include="PluginManager.cs" />
-    <Compile Include="ScriptPluginManager.cs" />
+    <Compile Include="Trash\Extensions.cs" />
+    <Compile Include="Native\Log.cs" />
+    <Compile Include="Trash\IPluginOptionsProvider.cs" />
+    <Compile Include="Trash\PluginManager.cs" />
+    <Compile Include="Trash\ScriptPluginManager.cs" />
     <Compile Include="swig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

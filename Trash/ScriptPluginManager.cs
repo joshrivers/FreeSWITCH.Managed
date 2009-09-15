@@ -40,50 +40,20 @@ using System.Reflection;
 using System.Reflection.Emit;
 
 
-namespace FreeSWITCH {
+namespace FreeSWITCH
+{
+    internal class ScriptModuleProxy : ModuleProxy
+    {
 
-    public enum ScriptContextType {
-        None,
-        App,
-        Api,
-        ApiBackground,
-    }
-
-    public static class Script {
-
-        [ThreadStatic]
-        internal static ScriptContextType contextType;
-        [ThreadStatic]
-        internal static object context;
-
-        public static ScriptContextType ContextType { get { return contextType; } }
-
-        public static ApiContext GetApiContext() {
-            return getContext<ApiContext>(ScriptContextType.Api);
-        }
-        public static ApiBackgroundContext GetApiBackgroundContext() {
-            return getContext<ApiBackgroundContext>(ScriptContextType.ApiBackground);
-        }
-        public static AppContext GetAppContext() {
-            return getContext<AppContext>(ScriptContextType.App);
-        }
-
-        public static T getContext<T>(ScriptContextType sct) {
-            var ctx = context;
-            if (ctx == null) throw new InvalidOperationException("Current context is null.");
-            if (contextType != sct) throw new InvalidOperationException("Current ScriptContextType is not " + sct.ToString() + ".");
-            return (T)ctx;
-        }
-
-    }
-
-    internal class ScriptPluginManager : PluginManager {
-
-        protected override bool LoadInternal(string fileName) {
+        protected override bool LoadInternal(string fileName)
+        {
             Assembly asm;
-            if (Path.GetExtension(fileName).ToLowerInvariant() == ".exe") {
+            if (Path.GetExtension(fileName).ToLowerInvariant() == ".exe")
+            {
                 asm = Assembly.LoadFrom(fileName);
-            } else {
+            }
+            else
+            {
                 asm = compileAssembly(fileName);
             }
             if (asm == null) return false;
@@ -91,7 +61,8 @@ namespace FreeSWITCH {
             return processAssembly(fileName, asm);
         }
 
-        Assembly compileAssembly(string fileName) {
+        Assembly compileAssembly(string fileName)
+        {
             var comp = new CompilerParameters();
             var mainRefs = new List<string> { 
                 Path.Combine(Native.freeswitch.SWITCH_GLOBAL_dirs.mod_dir, "FreeSWITCH.Managed.dll"),
@@ -105,7 +76,8 @@ namespace FreeSWITCH {
             comp.ReferencedAssemblies.AddRange(extraRefs.ToArray());
             CodeDomProvider cdp;
             var ext = Path.GetExtension(fileName).ToLowerInvariant();
-            switch (ext) {
+            switch (ext)
+            {
                 case ".fsx":
                     cdp = CodeDomProvider.CreateProvider("f#");
                     break;
@@ -121,9 +93,12 @@ namespace FreeSWITCH {
                     extraRefs.ForEach(comp.ReferencedAssemblies.Remove);
                     break;
                 default:
-                    if (CodeDomProvider.IsDefinedExtension(ext)) {
+                    if (CodeDomProvider.IsDefinedExtension(ext))
+                    {
                         cdp = CodeDomProvider.CreateProvider(CodeDomProvider.GetLanguageFromExtension(ext));
-                    } else {
+                    }
+                    else
+                    {
                         return null;
                     }
                     break;
@@ -136,12 +111,17 @@ namespace FreeSWITCH {
             var res = cdp.CompileAssemblyFromFile(comp, fileName);
 
             var errors = res.Errors.Cast<CompilerError>().Where(x => !x.IsWarning).ToList();
-            if (errors.Count > 0) {
+            if (errors.Count > 0)
+            {
                 Log.WriteLine(LogLevel.Error, "There were {0} errors compiling {1}.", errors.Count, fileName);
-                foreach (var err in errors) {
-                    if (string.IsNullOrEmpty(err.FileName)) {
+                foreach (var err in errors)
+                {
+                    if (string.IsNullOrEmpty(err.FileName))
+                    {
                         Log.WriteLine(LogLevel.Error, "{0}: {1}", err.ErrorNumber, err.ErrorText);
-                    } else {
+                    }
+                    else
+                    {
                         Log.WriteLine(LogLevel.Error, "{0}: {1}:{2}:{3} {4}", err.ErrorNumber, err.FileName, err.Line, err.Column, err.ErrorText);
                     }
                 }
@@ -151,10 +131,12 @@ namespace FreeSWITCH {
             return res.CompiledAssembly;
         }
 
-        bool processAssembly(string fileName, Assembly asm) {
+        bool processAssembly(string fileName, Assembly asm)
+        {
             // Call the entrypoint once, to initialize apps that need their main called
             var entryPoint = getEntryDelegate(asm.EntryPoint);
-            try { entryPoint(); } catch {  }
+            try { entryPoint(); }
+            catch { }
 
             // Check for loading
             var allTypes = asm.GetExportedTypes();
@@ -174,59 +156,10 @@ namespace FreeSWITCH {
             return true;
         }
 
-        class ScriptApiWrapper : IApiPlugin {
-
-            readonly Action entryPoint;
-            public ScriptApiWrapper(Action entryPoint) {
-                this.entryPoint = entryPoint;
-            }
-
-            public void Execute(ApiContext context) {
-                Script.contextType = ScriptContextType.Api;
-                Script.context = context;
-                try {
-                    entryPoint();
-                } finally {
-                    Script.contextType = ScriptContextType.None;
-                    Script.context = null;
-                }
-            }
-
-            public void ExecuteBackground(ApiBackgroundContext context) {
-                Script.contextType = ScriptContextType.ApiBackground;
-                Script.context = context;
-                try {
-                    entryPoint();
-                } finally {
-                    Script.contextType = ScriptContextType.None;
-                    Script.context = null;
-                }
-            }
-
-        }
-
-        class ScriptAppWrapper : IAppPlugin {
-            
-            readonly Action entryPoint;
-            public ScriptAppWrapper(Action entryPoint) {
-                this.entryPoint = entryPoint;
-            }
-
-            public void Run(AppContext context) {
-                Script.contextType = ScriptContextType.App;
-                Script.context = context;
-                try {
-                    entryPoint();
-                } finally {
-                    Script.contextType = ScriptContextType.None;
-                    Script.context = null;
-                }
-            }
-
-        }
-
-        static Action getEntryDelegate(MethodInfo entryPoint) {
-            if (!entryPoint.IsPublic || !entryPoint.DeclaringType.IsPublic) {
+        static Action getEntryDelegate(MethodInfo entryPoint)
+        {
+            if (!entryPoint.IsPublic || !entryPoint.DeclaringType.IsPublic)
+            {
                 Log.WriteLine(LogLevel.Error, "Entry point: {0}.{1} is not public. This may cause errors with Mono.",
                     entryPoint.DeclaringType.FullName, entryPoint.Name);
             }
@@ -234,13 +167,15 @@ namespace FreeSWITCH {
             var il = dm.GetILGenerator();
             var args = entryPoint.GetParameters();
             if (args.Length > 1) throw new ArgumentException("Cannot handle entry points with more than 1 parameter.");
-            if (args.Length == 1) {
+            if (args.Length == 1)
+            {
                 if (args[0].ParameterType != typeof(string[])) throw new ArgumentException("Entry point paramter must be a string array.");
                 il.Emit(OpCodes.Ldc_I4_0);
                 il.Emit(OpCodes.Newarr, typeof(string));
             }
             il.EmitCall(OpCodes.Call, entryPoint, null);
-            if (entryPoint.ReturnType != typeof(void)) {
+            if (entryPoint.ReturnType != typeof(void))
+            {
                 il.Emit(OpCodes.Pop);
             }
             il.Emit(OpCodes.Ret);

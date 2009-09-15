@@ -6,9 +6,9 @@ using System.Collections.ObjectModel;
 
 namespace FreeSWITCH.Managed
 {
-    public class PluginInfoList : SynchronizedList<PluginInfo>
+    public class PluginInfoList : SynchronizedList<Module>
     {
-        public List<PluginInfo> this[string fileName]
+        public List<Module> this[string fileName]
         {
             get
             {
@@ -34,7 +34,7 @@ namespace FreeSWITCH.Managed
             }
         }
 
-        public void RemoveAll(List<PluginInfo> items)
+        public void RemoveAll(List<Module> items)
         {
             lock (this.syncRoot)
             {

@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 
 namespace FreeSWITCH
 {
-    internal class AsmPluginManager : PluginManager
+    internal class AsmModuleProxy : ModuleProxy
     {
 
         protected override bool LoadInternal(string fileName)

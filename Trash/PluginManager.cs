@@ -38,7 +38,7 @@ using System.Reflection.Emit;
 
 namespace FreeSWITCH {
 
-    public abstract class PluginManager : MarshalByRefObject {
+    public abstract class ModuleProxy : MarshalByRefObject {
         public override object InitializeLifetimeService() {
             return null;
         }
