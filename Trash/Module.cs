@@ -12,10 +12,10 @@ namespace FreeSWITCH.Managed
         public string FilePath { get; private set; }
         public AppDomain Domain { get; private set; }
         public ModuleProxy Proxy { get; private set; }
-        private ILogger logger;
+        private LogDirector logger;
         private IDirectoryController directories;
 
-        public Module(ILogger logger, IDirectoryController directories)
+        public Module(LogDirector logger, IDirectoryController directories)
         {
             this.logger = logger;
             this.directories = directories;
@@ -34,6 +34,8 @@ namespace FreeSWITCH.Managed
             try
             {
                 this.Proxy = (ModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
+                this.logger.Loggers.Add(this.Proxy.Logger);
+                this.Proxy.LogDirector.Add(this.logger);
                 this.Proxy.MasterAssemblyPath = this.FilePath;
                 bool success = this.Proxy.AssemblyLoader.Load(this.FilePath);
                 if (!success)

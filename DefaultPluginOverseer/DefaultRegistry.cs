@@ -24,13 +24,13 @@ namespace FreeSWITCH.Managed
             {
                 return container.Create<DefaultModuleLoader>();
             });
+            registry.DeclareSingleton(typeof(ModuleList));
             registry.DeclareSingleton(typeof(RunCommandDirector));
             registry.DeclareSingleton(typeof(ExecuteCommandDirector));
             registry.DeclareSingleton(typeof(ExecuteBackgroundCommandDirector));
             registry.DeclareSingleton(typeof(ReloadCommandDirector));
             registry.DeclareSingleton(typeof(DefaultPluginOverseer));
             registry.DeclareSingleton(typeof(DefaultPluginDirectoryWatcher));
-            registry.DeclareSingleton(typeof(ModuleList));
             registry.DeclareSingleton(typeof(AssemblyResolver));
         }
     }

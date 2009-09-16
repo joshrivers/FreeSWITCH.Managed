@@ -36,20 +36,16 @@ namespace FreeSWITCH.Managed
                     return;
                 }
                 var module = DefaultServiceLocator.Container.Create<Module>();
-                try
-                {
-                    module.Initialize(fileName);
-                    moduleList.RemoveAll(moduleList[fileName]);
-                    moduleList.Add(module);
-                }
-                catch (Exception)
-                {
-                    moduleList.RemoveAll(moduleList[fileName]);
-                }
+
+                module.Initialize(fileName);
+                moduleList.RemoveAll(moduleList[fileName]);
+                moduleList.Add(module);
+
                 logger.Info(string.Format("Finished loading {0} into domain {1}.", module.FilePath, module.Domain.FriendlyName));
             }
             catch (Exception ex)
             {
+                moduleList.RemoveAll(moduleList[fileName]);
                 logger.Error(string.Format("Exception loading change from {0}: {1}", fileName, ex.ToString()));
             }
         }

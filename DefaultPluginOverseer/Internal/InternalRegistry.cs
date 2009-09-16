@@ -29,7 +29,7 @@ namespace FreeSWITCH
             registry.Register<PluginHandlerOrchestrator>(container =>
                 { return InternalAppdomainServiceLocator.PluginHandlerOrchestrator; });
             registry.Register<ILogger>(container =>
-                { return InternalAppdomainServiceLocator.LogSender; });
+                { return InternalAppdomainServiceLocator.Logger; });
             registry.Register<ModuleAssemblyLoader>(container =>
                 {
                     return new ModuleAssemblyLoader(container.Create<ILogger>(),
