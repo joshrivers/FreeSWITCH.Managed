@@ -8,15 +8,15 @@ namespace FreeSWITCH.Managed
 {
     public class DefaultReloadCommand : IReloadCommand
     {
-        private string pluginDirectoryPath;
-        private IModuleListContainer moduleListContainer;
+        private IDirectoryController directories;
+        public ModuleList moduleList;
         private IModuleLoader moduleLoader;
 
-        public DefaultReloadCommand(string pluginDirectoryPath, IModuleListContainer moduleListContainer, IModuleLoader moduleLoader)
+        public DefaultReloadCommand(IDirectoryController directories, ModuleList moduleList, IModuleLoader moduleLoader)
         {
-            this.moduleListContainer = moduleListContainer;
+            this.directories = directories;
+            this.moduleList = moduleList;
             this.moduleLoader = moduleLoader;
-            this.pluginDirectoryPath = pluginDirectoryPath;
         }
 
         public bool Reload(string command)
@@ -29,7 +29,7 @@ namespace FreeSWITCH.Managed
                 }
                 else
                 {
-                    moduleLoader.LoadModule(Path.Combine(this.pluginDirectoryPath, command));
+                    moduleLoader.LoadModule(Path.Combine(this.directories.PluginDirectoryPath, command));
                 }
                 return true;
             }

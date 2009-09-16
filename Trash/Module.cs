@@ -9,98 +9,86 @@ namespace FreeSWITCH.Managed
 {
     public class Module
     {
-        public string FileName { get; private set; }
+        public string FilePath { get; private set; }
         public AppDomain Domain { get; private set; }
         public ModuleProxy Proxy { get; private set; }
         private ILogger logger;
         private IDirectoryController directories;
 
-        public Module(string filename, ILogger logger, IDirectoryController directories)
+        public Module(ILogger logger, IDirectoryController directories)
         {
-            this.FileName = filename;
             this.logger = logger;
             this.directories = directories;
         }
 
-        public void Initialize()
+        public void Initialize(string filePath)
         {
-            Type proxyType;
-            switch (FileName.GetLoweredFileExtension())
-            {
-                case ".dll":
-                    proxyType = typeof(AsmModuleProxy);
-                    break;
-                case ".exe": // TODO these need to come from config
-                case ".fsx":
-                case ".vbx":
-                case ".csx":
-                case ".jsx":
-                    proxyType = typeof(ScriptModuleProxy);
-                    break;
-                default:
-                    proxyType = null;
-                    break;
-            }
+            this.FilePath = filePath;
+            Type proxyType = GetProxyType();
             if (proxyType == null) return;
 
             DefaultAppDomainSetupFactory appDomainSetupFactory = new DefaultAppDomainSetupFactory(directories);
-            // App domain setup
-            var setup = appDomainSetupFactory.CreateSetup(FileName);
-
-            // Create domain and load PM inside
+            var setup = appDomainSetupFactory.CreateSetup(FilePath);
             this.Domain = AppDomain.CreateDomain(setup.ApplicationName, null, setup);
 
             try
             {
-                Proxy = (ModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
-                DefaultLoader.Loader.PluginOverSeer.Logger.Notice(string.Format("Module.Initialize() " + FileName.GetLoweredFileExtension()));
-                //Proxy.logger = logger;
-                if (!Proxy.Load(FileName))
+                this.Proxy = (ModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
+                this.Proxy.MasterAssemblyPath = this.FilePath;
+                bool success = this.Proxy.AssemblyLoader.Load(this.FilePath);
+                if (!success)
                 {
-                    AppDomain.Unload(Domain);
                     throw new Exception("Unable to Initialize Module");
                 }
             }
             catch (Exception ex)
             {
-                // On an exception, we will unload the current file so an old copy doesnt stay active
-                logger.Alert(string.Format("Exception loading {0}: {1}", FileName, ex.ToString()));
-                AppDomain.Unload(Domain);
+                logger.Alert(string.Format("Exception loading {0}: {1}", FilePath, ex.ToString()));
+                AppDomain.Unload(this.Domain);
                 throw;
             }
         }
 
+        private Type GetProxyType()
+        {
+            Type proxyType;
+            switch (FilePath.GetLoweredFileExtension())
+            {
+                case ".dll":
+                case ".exe": // TODO these need to come from config
+                case ".fsx":
+                case ".vbx":
+                case ".csx":
+                case ".jsx":
+                    proxyType = typeof(ModuleProxy);
+                    break;
+                default:
+                    proxyType = null;
+                    break;
+            }
+            return proxyType;
+        }
         public void Remove()
         {
             var t = new System.Threading.Thread(() =>
             {
                 var friendlyName = this.Domain.FriendlyName;
-                logger.Info(string.Format("Starting to unload {0}, domain {1}.", this.FileName, friendlyName));
+                logger.Info(string.Format("Starting to unload {0}, domain {1}.", this.FilePath, friendlyName));
                 try
                 {
                     var d = this.Domain;
-                    this.Proxy.BlockUntilUnloadIsSafe();
+                    this.Proxy.PluginHandlerOrchestrator.Unload();
                     this.Proxy = null;
                     this.Domain = null;
                     AppDomain.Unload(d);
-                    logger.Info(string.Format("Unloaded {0}, domain {1}.", this.FileName, friendlyName));
+                    logger.Info(string.Format("Unloaded {0}, domain {1}.", this.FilePath, friendlyName));
                 }
                 catch (Exception ex)
                 {
-                    logger.Alert(string.Format("Could not unload {0}, domain {1}: {2}", this.FileName, friendlyName, ex.ToString()));
+                    logger.Alert(string.Format("Could not unload {0}, domain {1}: {2}", this.FilePath, friendlyName, ex.ToString()));
                 }
             }) { Priority = System.Threading.ThreadPriority.BelowNormal, IsBackground = true };
             t.Start();
         }
-
-        public bool NoReload
-        {
-            get
-            {
-                return this.Proxy.ApiExecutors.Any(x => (x.PluginOptions & PluginOptions.NoAutoReload) == PluginOptions.NoAutoReload) ||
-                                   this.Proxy.AppExecutors.Any(x => (x.PluginOptions & PluginOptions.NoAutoReload) == PluginOptions.NoAutoReload);
-            }
-        }
-
     }
 }

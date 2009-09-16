@@ -7,135 +7,40 @@ using System.IO;
 
 namespace FreeSWITCH.Managed
 {
-    public class DefaultPluginOverseer : IModuleListContainer, IModuleLoader
+    public class DefaultPluginOverseer
     {
-        public IDirectoryController Directories { get; private set; }
-        public LogDirector Logger { get; private set; }
-        public IDefaultServiceLocator Locator { get; private set; }
-        public DefaultPluginDirectoryWatcher Watcher { get; private set; }
-        private ResolveEventHandler defaultEventResolver;
-        public ModuleList ModuleList { get; private set; }
-        public AssemblyComposerFactoryDictionary AssemblyComposers { get; private set; }
+        private DefaultPluginDirectoryWatcher watcher;
+        private IDirectoryController directories;
+        private AssemblyResolver resolver;
+        private ILogger logger;
 
-        public DefaultPluginOverseer(IDefaultServiceLocator locator, IDirectoryController directories, LogDirector logger)
+        public DefaultPluginOverseer(IDirectoryController directories, LogDirector logger,
+            DefaultPluginDirectoryWatcher watcher, AssemblyResolver resolver)
         {
-            this.Directories = directories;
-            this.Logger = logger;
-            this.Locator = locator;
-            this.Watcher = new DefaultPluginDirectoryWatcher(this.Directories, this.Logger, this);
-            this.defaultEventResolver = new ResolveEventHandler(DefaultAssemblyResolver);
-            this.ModuleList = new ModuleList();
-            this.AssemblyComposers = new AssemblyComposerFactoryDictionary();
+            this.resolver = resolver;
+            this.directories = directories;
+            this.logger = logger;
+            logger.Add(new DefaultLogger());
         }
 
         public bool Load()
         {
-            LoadForAllAppDomains();
-            DefaultRunCommand runcommand = new DefaultRunCommand(this);
-            this.Locator.RunCommandDirector.Commands.Add(runcommand);
+            DefaultRunCommand runcommand = DefaultServiceLocator.Container.Create<DefaultRunCommand>();
+            DefaultServiceLocator.Container.Create<RunCommandDirector>().Commands.Add(runcommand);
 
-            DefaultExecuteCommand executecommmand = new DefaultExecuteCommand(this);
-            this.Locator.ExecuteCommandDirector.Commands.Add(executecommmand);
+            DefaultExecuteCommand executecommmand = DefaultServiceLocator.Container.Create<DefaultExecuteCommand>();
+            DefaultServiceLocator.Container.Create<ExecuteCommandDirector>().Commands.Add(executecommmand);
 
-            DefaultExecuteBackgroundCommand executebackgroundcommmand = new DefaultExecuteBackgroundCommand(this);
-            this.Locator.ExecuteBackgroundCommandDirector.Commands.Add(executebackgroundcommmand);
+            DefaultExecuteBackgroundCommand executebackgroundcommmand = DefaultServiceLocator.Container.Create<DefaultExecuteBackgroundCommand>();
+            DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandDirector>().Commands.Add(executebackgroundcommmand);
 
-            DefaultReloadCommand reloadcommand = new DefaultReloadCommand(this.Directories.PluginDirectoryPath, this, this);
-            this.Locator.ReloadCommandDirector.Commands.Add(reloadcommand);
+            DefaultReloadCommand reloadcommand = DefaultServiceLocator.Container.Create<DefaultReloadCommand>();
+            DefaultServiceLocator.Container.Create<ReloadCommandDirector>().Commands.Add(reloadcommand);
 
-            this.AttachDefaultAssemblyResolver();
+            this.resolver.AttachDefaultAssemblyResolver();
 
-            return this.Watcher.Initialize();
-        }
-
-        public void LoadForAllAppDomains()
-        {
-            InitializeAssemblyComposers();
-            this.Logger.Loggers.Add(new DefaultLogger());
-        }
-
-        private void InitializeAssemblyComposers()
-        {
-            var factory1 = new DllComposerFactory();
-            var factory2 = new ScriptComposerFactory();
-            this.AssemblyComposers.Add(".dll", factory1);
-            this.AssemblyComposers.Add(".exe", factory1);
-            this.AssemblyComposers.Add(".fsx", factory2);
-            this.AssemblyComposers.Add(".csx", factory2);
-            this.AssemblyComposers.Add(".vbx", factory2);
-            this.AssemblyComposers.Add(".jsx", factory2);
-        }
-
-        public void AttachDefaultAssemblyResolver()
-        {
-            AppDomain.CurrentDomain.AssemblyResolve += defaultEventResolver;
-        }
-
-        public void DetatchDefaultAssemblyResolver()
-        {
-            AppDomain.CurrentDomain.AssemblyResolve -= defaultEventResolver;
-        }
-
-        // This event handler resolves the filename of the requested assembly.
-        // http://support.microsoft.com/kb/837908
-        private Assembly DefaultAssemblyResolver(object sender, ResolveEventArgs args)
-        {
-            Logger.Info(string.Format("Resolving assembly '{0}'.", args.Name));
-            string currentAssemblyName = Assembly.GetExecutingAssembly().FullName;
-            if (args.Name == currentAssemblyName)
-            {
-                return Assembly.GetExecutingAssembly();
-            }
-            string[] assemblyRefernceComponents = args.Name.Split(',');
-            string newAssemblyName = assemblyRefernceComponents[0];
-            string newAssemblyPath = Path.Combine(Directories.PluginDirectoryPath, string.Format("{0}.dll", newAssemblyName));
-            Logger.Info(string.Format("Resolving to: '{0}'.", newAssemblyPath));
-            if (File.Exists(newAssemblyPath))
-            {
-                return Assembly.LoadFile(newAssemblyPath);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public void LoadModule(string fileName)
-        {
-            try
-            {
-                if ((Path.GetExtension(fileName).ToLowerInvariant() == ".config"))
-                {
-                    fileName = Path.ChangeExtension(fileName, null);
-                }
-                if (ModuleList.NoReloadEnabled(fileName)) { return; }
-                // Attempts to load the file. On failure, it will call unload.
-                // Loading part does not take out a lock. 
-                // Lock is only done after loading is finished and dictionaries need updating.
-
-                // We might get a load for a file that's no longer there. Just unload the old one.
-                if (!File.Exists(fileName))
-                {
-                    ModuleList.RemoveAll(ModuleList[fileName]);
-                    return;
-                }
-                var module = new Module(fileName, this.Logger, this.Directories);
-                try
-                {
-                    module.Initialize();
-                    ModuleList.RemoveAll(ModuleList[fileName]);
-                    ModuleList.Add(module);
-                }
-                catch (Exception)
-                {
-                    ModuleList.RemoveAll(ModuleList[fileName]);
-                }
-                Logger.Info(string.Format("Finished loading {0} into domain {1}.", module.FileName, module.Domain.FriendlyName));
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(string.Format("Exception loading change from {0}: {1}", fileName, ex.ToString()));
-            }
+            this.watcher = DefaultServiceLocator.Container.Create<DefaultPluginDirectoryWatcher>();
+            return this.watcher.Initialize();
         }
     }
 }

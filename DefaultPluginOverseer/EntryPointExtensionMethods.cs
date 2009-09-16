@@ -14,8 +14,11 @@ namespace FreeSWITCH
     {
         public static void CallEntryPoint(this MethodInfo entryPoint)
         {
-            var internalDelegate = entryPoint.GetEntryDelegate();
-            try { internalDelegate(); }
+            try
+            {
+                var internalDelegate = entryPoint.GetEntryDelegate();
+                internalDelegate();
+            }
             catch { }
         }
 

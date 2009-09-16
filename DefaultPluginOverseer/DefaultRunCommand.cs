@@ -8,37 +8,21 @@ namespace FreeSWITCH.Managed
 {
     public class DefaultRunCommand : IRunCommand
     {
-        public IModuleListContainer moduleListContainer;
-        public DefaultRunCommand(IModuleListContainer moduleListContainer)
+        public ModuleList moduleList;
+        public DefaultRunCommand(ModuleList moduleList)
         {
-            this.moduleListContainer = moduleListContainer;
+            this.moduleList = moduleList;
         }
 
         public bool Run(string command, IntPtr sessionHandle)
         {
-            try
+            bool returnValue = false;
+            this.moduleList.Items.ForEach(module =>
             {
-                Log.WriteLine(LogLevel.Debug, "FreeSWITCH.Managed: attempting to run application '{0}'.", command);
-                System.Diagnostics.Debug.Assert(sessionHandle != IntPtr.Zero, "sessionHandle is null.");
-                var parsed = command.FreeSWITCHCommandParse();
-                if (parsed == null) return false;
-                var fullName = parsed[0];
-                var args = parsed[1];
-
-                AppPluginExecutor exec;
-                var execs = moduleListContainer.ModuleList.appExecs.ToDictionary();
-                if (!execs.TryGetValue(fullName, out exec))
-                {
-                    Log.WriteLine(LogLevel.Error, "App plugin {0} not found.", fullName);
-                    return false;
-                }
-                return exec.Execute(args, sessionHandle);
-            }
-            catch (Exception ex)
-            {
-                Log.WriteLine(LogLevel.Error, "Exception in Run({0}): {1}", command, ex.ToString());
-                return false;
-            }
+                bool result = module.Proxy.PluginHandlerOrchestrator.Run(command, sessionHandle);
+                if (result == true) { returnValue = true; }
+            });
+            return returnValue;
         }
     }
 }

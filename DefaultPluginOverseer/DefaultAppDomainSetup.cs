@@ -21,15 +21,15 @@ namespace FreeSWITCH.Managed
             System.Threading.Interlocked.Increment(ref appDomainCount);
             var setup = new AppDomainSetup();
             setup.ApplicationBase = Native.freeswitch.SWITCH_GLOBAL_dirs.mod_dir;
-            setup.ShadowCopyDirectories = directories.PluginDirectoryPath + ";";
+            setup.ShadowCopyDirectories = String.Format("{0};", directories.PluginDirectoryPath);
             setup.LoaderOptimization = LoaderOptimization.MultiDomainHost; // TODO: would MultiDomain work better since FreeSWITCH.Managed isn't gac'd?
             setup.CachePath = directories.ShadowDirectoryPath;
             setup.ShadowCopyFiles = "true";
             setup.PrivateBinPath = "managed";
             setup.ApplicationName = Path.GetFileName(filePath) + "_" + appDomainCount;
-            if (File.Exists(filePath + ".config"))
+            if (File.Exists(String.Format("{0}.config", filePath)))
             {
-                setup.ConfigurationFile = filePath + ".config";
+                setup.ConfigurationFile = String.Format("{0}.config", filePath);
             }
             return setup;
         }
