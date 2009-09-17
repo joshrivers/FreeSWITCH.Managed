@@ -7,23 +7,23 @@ using NUnit.Framework;
 namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
 {
     [TestFixture]
-    public class InternalAppdomainServiceLocatorTests
+    public class ModuleServiceLocatorTests
     {
         [SetUp]
         public void Setup()
         {
-            TestHelpers.InternalServiceLocatorSetup.ContainerReset();
+            TestHelpers.ModuleServiceLocatorSetup.ContainerReset();
         }
         [TearDown]
         public void TearDown()
         {
-            TestHelpers.InternalServiceLocatorSetup.ContainerReset();
+            TestHelpers.ModuleServiceLocatorSetup.ContainerReset();
         }
 
         private void ConfirmSingletonDeclaration<T>()
         {
-            var createdObject1 = DefaultServiceLocator.Container.Create<T>();
-            var createdObject2 = DefaultServiceLocator.Container.Create<T>();
+            var createdObject1 = ModuleServiceLocator.Container.Create<T>();
+            var createdObject2 = ModuleServiceLocator.Container.Create<T>();
             Assert.IsInstanceOf<T>(createdObject1);
             Assert.AreSame(createdObject1, createdObject2);
         }
@@ -31,13 +31,13 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         [Test]
         public void LocatorResolvesIDirectoryController()
         {
-            var createdObject = InternalAppdomainServiceLocator.Container.Create<IAssemblyCompiler>();
+            var createdObject = ModuleServiceLocator.Container.Create<IAssemblyCompiler>();
             Assert.IsInstanceOf<AssemblyCompiler>(createdObject);
         }
         [Test]
         public void LocatorResolvesAssemblyComposerDictionary()
         {
-            var createdObject = InternalAppdomainServiceLocator.Container.Create<AssemblyComposerDictionary>();
+            var createdObject = ModuleServiceLocator.Container.Create<AssemblyComposerDictionary>();
             Assert.IsInstanceOf<AssemblyComposerDictionary>(createdObject);
             Assert.IsInstanceOf<Func<IAssemblyComposer>>(createdObject[".dll"]);
             Assert.IsInstanceOf<Func<IAssemblyComposer>>(createdObject[".exe"]);
@@ -58,5 +58,11 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         {
             ConfirmSingletonDeclaration<LogDirector>();
         }
-    }        
+
+        [Test]
+        public void LocatorResolvesPluginHandlerOrchestrator()
+        {
+            ConfirmSingletonDeclaration<PluginHandlerOrchestrator>();
+        }
+    }
 }

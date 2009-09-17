@@ -12,13 +12,13 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         [SetUp]
         public void Setup()
         {
-            TestHelpers.InternalServiceLocatorSetup.ContainerReset();
+            TestHelpers.ModuleServiceLocatorSetup.ContainerReset();
         }
 
         [TearDown]
         public void TearDown()
         {
-            TestHelpers.InternalServiceLocatorSetup.ContainerReset();
+            TestHelpers.ModuleServiceLocatorSetup.ContainerReset();
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         public void Logger_Get_ReturnsLoggerFromContainer()
         {
             var createdObject = new ModuleProxy();
-            var logger = InternalAppdomainServiceLocator.Container.Create<ILogger>();
+            var logger = ModuleServiceLocator.Container.Create<ILogger>();
             Assert.AreSame(createdObject.Logger, logger);
         }
 
@@ -40,7 +40,7 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         public void Logger_Get_ReturnsLogDirectorFromContainer()
         {
             var createdObject = new ModuleProxy();
-            var logger = InternalAppdomainServiceLocator.Container.Create<LogDirector>();
+            var logger = ModuleServiceLocator.Container.Create<LogDirector>();
             Assert.AreSame(createdObject.LogDirector, logger);
         }
     }

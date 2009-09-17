@@ -103,8 +103,8 @@
     <Compile Include="ModuleAppdomains\PluginTypes\IAppPlugin.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\IAssemblyComposer.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\ILoadNotificationPlugin.cs" />
-    <Compile Include="ModuleAppdomains\InternalAppdomainServiceLocator.cs" />
-    <Compile Include="ModuleAppdomains\InternalRegistry.cs" />
+    <Compile Include="ModuleAppdomains\ModuleServiceLocator.cs" />
+    <Compile Include="ModuleAppdomains\ModuleRegistry.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\IPluginHandler.cs" />
     <Compile Include="ModuleAppdomains\ModuleAssemblyLoader.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\PluginHandlerOrchestrator.cs" />

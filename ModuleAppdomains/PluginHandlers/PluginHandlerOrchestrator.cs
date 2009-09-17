@@ -30,7 +30,7 @@ namespace FreeSWITCH
 
         public void LoadPlugins(Assembly assembly)
         {
-            var newHandlers = InternalAppdomainServiceLocator.Container.Create<List<IPluginHandler>>();
+            var newHandlers = ModuleServiceLocator.Container.Create<List<IPluginHandler>>();
             newHandlers.ForEach(h => h.LoadPlugins(assembly));
             this.handlers.AddRange(newHandlers);
         }

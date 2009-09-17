@@ -8,9 +8,9 @@ using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public class InternalRegistry
+    public class ModuleRegistry
     {
-        public void Register(InternalAppdomainServiceLocator registry)
+        public void Register(ModuleServiceLocator registry)
         {
             registry.Register<AssemblyComposerDictionary>(container =>
             {
@@ -26,10 +26,10 @@ namespace FreeSWITCH
                 return dictionary;
             });
             registry.Register<IAssemblyCompiler>(container => { return container.Create<AssemblyCompiler>(); });
-            registry.Register<PluginHandlerOrchestrator>(container =>
-                { return InternalAppdomainServiceLocator.PluginHandlerOrchestrator; });
+            registry.DeclareSingleton(typeof(PluginHandlerOrchestrator));
+            registry.DeclareSingleton(typeof(LogDirector));
             registry.RegisterSingleton<ILogger>(container => { return new LogDirector(); });
-            registry.RegisterSingleton<LogDirector>(container => { return new LogDirector(); });
+            //registry.RegisterSingleton<PluginHandlerOrchestrator>(container => { return new PluginHandlerOrchestrator(); });
             registry.Register<ModuleAssemblyLoader>(container =>
                 {
                     return new ModuleAssemblyLoader(container.Create<ILogger>(),

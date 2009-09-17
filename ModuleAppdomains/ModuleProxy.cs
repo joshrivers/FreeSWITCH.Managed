@@ -46,18 +46,16 @@ namespace FreeSWITCH
         {
             return null;
         }
-        public PluginHandlerOrchestrator PluginHandlerOrchestrator { get { return InternalAppdomainServiceLocator.Container.Create<PluginHandlerOrchestrator>(); } }
-        public LogDirector LogDirector { get { return InternalAppdomainServiceLocator.Container.Create<LogDirector>(); } }
-        public LogDirector Logger { get { return InternalAppdomainServiceLocator.Container.Create<ILogger>() as LogDirector; } }
-        public ModuleAssemblyLoader AssemblyLoader { get { return InternalAppdomainServiceLocator.Container.Create<ModuleAssemblyLoader>(); } }
-        private string masterAssemblyPath = string.Empty;
+        public PluginHandlerOrchestrator PluginHandlerOrchestrator { get { return ModuleServiceLocator.Container.Create<PluginHandlerOrchestrator>(); } }
+        public LogDirector LogDirector { get { return ModuleServiceLocator.Container.Create<LogDirector>(); } }
+        public LogDirector Logger { get { return ModuleServiceLocator.Container.Create<ILogger>() as LogDirector; } }
+        public ModuleAssemblyLoader AssemblyLoader { get { return ModuleServiceLocator.Container.Create<ModuleAssemblyLoader>(); } }
         public string MasterAssemblyPath
         {
-            get { return this.masterAssemblyPath; }
+            get { return ModuleServiceLocator.MasterAssemblyPath; }
             set
             {
-                this.masterAssemblyPath = value;
-                InternalAppdomainServiceLocator.PluginHandlerOrchestrator.FileName = value;
+                ModuleServiceLocator.MasterAssemblyPath = value;
             }
         }
 

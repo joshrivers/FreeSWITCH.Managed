@@ -57,7 +57,7 @@
     <Compile Include="DefaultLoaderTests.cs" />
     <Compile Include="ModuleAppdomains\AssemblyCompilerTests.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposerTests.cs" />
-    <Compile Include="ModuleAppdomains\InternalAppdomainServiceLocatorTests.cs" />
+    <Compile Include="ModuleAppdomains\ModuleServiceLocatorTests.cs" />
     <Compile Include="ModuleAppdomains\ModuleProxyTests.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\DefaultPluginHandlerTests.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\RunNotifyPluginHandlerTests.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="ModuleAppdomains\PluginTypes\DefaultPluginExecutorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ObjectContainerTests.cs" />
-    <Compile Include="TestHelpers\InternalServiceLocatorSetup.cs" />
+    <Compile Include="TestHelpers\ModuleServiceLocatorSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FreeSWITCH.Managed.csproj">

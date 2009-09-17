@@ -14,12 +14,12 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains.PluginTypes
         [SetUp]
         public void Setup()
         {
-            TestHelpers.InternalServiceLocatorSetup.ContainerReset();
+            TestHelpers.ModuleServiceLocatorSetup.ContainerReset();
         }
         [TearDown]
         public void TearDown()
         {
-            TestHelpers.InternalServiceLocatorSetup.ContainerReset();
+            TestHelpers.ModuleServiceLocatorSetup.ContainerReset();
         }
         private class TestPluginExecutorImplementation : DefaultPluginExecutor
         {
@@ -31,10 +31,10 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains.PluginTypes
         [Test]
         public void Constructor_Requires_ILogger()
         {
-            InternalAppdomainServiceLocator.Container.Reset();
+            ModuleServiceLocator.Container.Reset();
             var logger = new Mock<ILogger>();
             bool called = false;
-            InternalAppdomainServiceLocator.Container.Register<ILogger>(c =>
+            ModuleServiceLocator.Container.Register<ILogger>(c =>
             {
                 called = true; return logger.Object;
             });

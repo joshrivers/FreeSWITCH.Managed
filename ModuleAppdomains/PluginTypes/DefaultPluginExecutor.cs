@@ -34,7 +34,7 @@ namespace FreeSWITCH
             this.aliases = aliases.Distinct().ToList();
             this.pluginOptions = pluginOptions;
             // Hardwired because the container doesn't generate PluginExectors. May be a good place for a later refactoring.
-            this.logger = InternalAppdomainServiceLocator.Container.Create<ILogger>();
+            this.logger = ModuleServiceLocator.Container.Create<ILogger>();
         }
 
         int useCount = 0;
