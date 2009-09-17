@@ -36,19 +36,14 @@ namespace FreeSWITCH
                 ApiPluginExecutor exec = ApiExecutors.Where(app => app.Aliases.Contains(fullName)).FirstOrDefault();
                 if (exec == null) { return false; }
 
-                //var execs = moduleListContainer.ModuleList.apiExecs.ToDictionary();
-                //ApiPluginExecutor exec;
-                //if (!execs.TryGetValue(fullName, out exec))
-                //{
-                //    Log.WriteLine(LogLevel.Error, "API plugin {0} not found.", fullName);
-                //    return false;
-                //}
+                logger.Error(string.Format( "API plugin {0} not found.", fullName));
+
                 var res = exec.ExecuteApi(args, streamHandle, eventHandle);
                 return res;
             }
             catch (Exception ex)
             {
-                Log.WriteLine(LogLevel.Error, "Exception in Execute({0}): {1}", command, ex.ToString());
+                logger.Error(string.Format(  "Exception in Execute({0}): {1}", command, ex.ToString()));
                 return false;
             }
         }
@@ -63,24 +58,21 @@ namespace FreeSWITCH
                 var args = parsed[1];
                 ApiPluginExecutor exec = ApiExecutors.Where(app => app.Aliases.Contains(fullName)).FirstOrDefault();
                 if (exec == null) { return false; }
-                //var execs = moduleListContainer.ModuleList.apiExecs.ToDictionary();
-                //ApiPluginExecutor exec;
-                //if (!execs.TryGetValue(fullName, out exec))
-                //{
-                //    Log.WriteLine(LogLevel.Error, "API plugin {0} not found.", fullName);
-                //    return false;
-                //}
+   
+                logger.Error(string.Format( "API plugin {0} not found.", fullName));
+
                 return exec.ExecuteApiBackground(args);
             }
             catch (Exception ex)
             {
-                Log.WriteLine(LogLevel.Error, "Exception in ExecuteBackground({0}): {1}", command, ex.ToString());
+                logger.Error(string.Format(  "Exception in ExecuteBackground({0}): {1}", command, ex.ToString()));
                 return false;
             }
         }
 
         public void LoadPlugins(Assembly assembly)
         {
+            logger.Info("Default Plugin Loader Operating");
             var allTypes = assembly.GetExportedTypes();
             var opts = GetOptions(allTypes);
             if ((opts & PluginOptions.NoAutoReload) == PluginOptions.NoAutoReload)
@@ -150,7 +142,7 @@ namespace FreeSWITCH
         {
             try
             {
-                Log.WriteLine(LogLevel.Debug, "FreeSWITCH.Managed: attempting to run application '{0}'.", command);
+                logger.Debug(string.Format(  "FreeSWITCH.Managed: attempting to run application '{0}'.", command));
                 System.Diagnostics.Debug.Assert(sessionHandle != IntPtr.Zero, "sessionHandle is null.");
                 var parsed = command.FreeSWITCHCommandParse();
                 if (parsed == null) return false;
@@ -158,18 +150,13 @@ namespace FreeSWITCH
                 var args = parsed[1];
 
                 AppPluginExecutor exec = AppExecutors.Where(app => app.Aliases.Contains(fullName)).FirstOrDefault();
-                //var execs = moduleListContainer.ModuleList.appExecs.ToDictionary();
-                //if (!execs.TryGetValue(fullName, out exec))
-                //{
-                //    Log.WriteLine(LogLevel.Error, "App plugin {0} not found.", fullName);
-                //    return false;
-                //}
+                logger.Error(string.Format( "App plugin {0} not found.", fullName));
                 if (exec == null) { return false; }
                 return exec.Execute(args, sessionHandle);
             }
             catch (Exception ex)
             {
-                Log.WriteLine(LogLevel.Error, "Exception in Run({0}): {1}", command, ex.ToString());
+                logger.Error(string.Format(  "Exception in Run({0}): {1}", command, ex.ToString()));
                 return false;
             }
         }

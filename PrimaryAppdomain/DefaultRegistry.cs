@@ -18,7 +18,7 @@ namespace FreeSWITCH.Managed
             registry.DeclareSingleton(typeof(LogDirector));
             registry.RegisterSingleton<ILogger>(container =>
             {
-                 return  container.Create<LogDirector>();
+                return container.Create<LogDirector>();
             });
             registry.Register<IModuleLoader>(container =>
             {

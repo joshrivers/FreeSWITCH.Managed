@@ -34,8 +34,8 @@ namespace FreeSWITCH.Managed
             try
             {
                 this.Proxy = (ModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
-                this.logger.Loggers.Add(this.Proxy.Logger);
-                this.Proxy.LogDirector.Add(this.logger);
+                this.logger.Add(this.Proxy.LogDirector);
+                this.Proxy.Logger.Add(this.logger);
                 this.Proxy.MasterAssemblyPath = this.FilePath;
                 bool success = this.Proxy.AssemblyLoader.Load(this.FilePath);
                 if (!success)
