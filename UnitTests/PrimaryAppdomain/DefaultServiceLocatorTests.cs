@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace FreeSWITCH.Managed.Tests
+namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
 {
     [TestFixture]
     public class DefaultServiceLocatorTests

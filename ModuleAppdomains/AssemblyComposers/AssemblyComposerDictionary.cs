@@ -10,11 +10,7 @@ using System.Reflection.Emit;
 
 namespace FreeSWITCH
 {
-    public class DllComposerFactory : IAssemblyComposerFactory
+    public class AssemblyComposerDictionary : Dictionary<string, Func<IAssemblyComposer>>
     {
-        public IAssemblyComposer GetComposer()
-        {
-            return new DllAssemblyComposer();
-        }
     }
 }

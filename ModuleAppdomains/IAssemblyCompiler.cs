@@ -7,11 +7,12 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
+using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public interface IAssemblyComposerFactory
+    public interface IAssemblyCompiler
     {
-        IAssemblyComposer GetComposer();
+        Assembly CompileAssembly(string fileName);
     }
 }

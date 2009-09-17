@@ -7,11 +7,19 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
+using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public class AssemblyCompiler
+    public class AssemblyCompiler : IAssemblyCompiler
     {
+        private ILogger logger;
+        public AssemblyCompiler(ILogger logger)
+        {
+            this.logger = logger;
+         
+        }
+
         public Assembly CompileAssembly(string fileName)
         {
             var fileExtension = fileName.GetLoweredFileExtension();
@@ -30,18 +38,18 @@ namespace FreeSWITCH
             return compilerResult.CompiledAssembly;
         }
 
-        private static void LogErrors(string fileName, List<CompilerError> errors)
+        private void LogErrors(string fileName, List<CompilerError> errors)
         {
             Log.WriteLine(LogLevel.Error, "There were {0} errors compiling {1}.", errors.Count, fileName);
             foreach (var err in errors)
             {
                 if (string.IsNullOrEmpty(err.FileName))
                 {
-                    Log.WriteLine(LogLevel.Error, "{0}: {1}", err.ErrorNumber, err.ErrorText);
+                    this.logger.Error(string.Format( "{0}: {1}", err.ErrorNumber, err.ErrorText));
                 }
                 else
                 {
-                    Log.WriteLine(LogLevel.Error, "{0}: {1}:{2}:{3} {4}", err.ErrorNumber, err.FileName, err.Line, err.Column, err.ErrorText);
+                    this.logger.Error(string.Format("{0}: {1}:{2}:{3} {4}", err.ErrorNumber, err.FileName, err.Line, err.Column, err.ErrorText));
                 }
             }
         }

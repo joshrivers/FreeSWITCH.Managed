@@ -10,11 +10,11 @@ namespace FreeSWITCH
 {
     public class ModuleAssemblyLoader : MarshalByRefObject
     {
-        private AssemblyComposerFactoryDictionary assemblyComposers;
+        private AssemblyComposerDictionary assemblyComposers;
         private PluginHandlerOrchestrator orchestrator;
         private ILogger logger;
         public ModuleAssemblyLoader(ILogger logger,
-           AssemblyComposerFactoryDictionary assemblyComposers,
+           AssemblyComposerDictionary assemblyComposers,
            PluginHandlerOrchestrator orchestrator)
         {
             this.orchestrator = orchestrator;
@@ -30,7 +30,7 @@ namespace FreeSWITCH
             bool result;
             try
             {
-                var assemblyComposer = this.assemblyComposers[filePath.GetLoweredFileExtension()].GetComposer();
+                var assemblyComposer = this.assemblyComposers[filePath.GetLoweredFileExtension()].Invoke();
                 Assembly assembly = assemblyComposer.GetAssembly(filePath);
                 this.ThrowExceptionIfNotPlugin(assembly);
                 assembly.EntryPoint.CallEntryPoint();

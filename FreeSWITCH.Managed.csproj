@@ -49,10 +49,9 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods\Extensions.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\DllAssemblyComposer.cs" />
-    <Compile Include="ModuleAppdomains\AssemblyComposers\DllComposerFactory.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposer.cs" />
-    <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptComposerFactory.cs" />
     <Compile Include="ExtensionMethods\PathExtensions.cs" />
+    <Compile Include="ModuleAppdomains\IAssemblyCompiler.cs" />
     <Compile Include="PrimaryAppdomain\Utility\AssemblyResolver.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultModuleLoader.cs" />
     <Compile Include="PrimaryAppdomain\DefaultRegistry.cs" />
@@ -69,7 +68,7 @@
     <Compile Include="ModuleAppdomains\PluginTypes\AppPluginExecutor.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ModuleAppdomains\AssemblyCompiler.cs" />
-    <Compile Include="ModuleAppdomains\AssemblyComposers\AssemblyComposerFactoryDictionary.cs" />
+    <Compile Include="ModuleAppdomains\AssemblyComposers\AssemblyComposerDictionary.cs" />
     <Compile Include="Native\ChannelVariables.cs" />
     <Compile Include="ExtensionMethods\CommandStringExtensions.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultAppDomainSetup.cs" />
@@ -103,10 +102,9 @@
     <Compile Include="ModuleAppdomains\PluginTypes\IApiPlugin.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\IAppPlugin.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\IAssemblyComposer.cs" />
-    <Compile Include="ModuleAppdomains\AssemblyComposers\IAssemblyComposerFactory.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\ILoadNotificationPlugin.cs" />
-    <Compile Include="ModuleAppdomains\Internal\InternalAppdomainServiceLocator.cs" />
-    <Compile Include="ModuleAppdomains\Internal\InternalRegistry.cs" />
+    <Compile Include="ModuleAppdomains\InternalAppdomainServiceLocator.cs" />
+    <Compile Include="ModuleAppdomains\InternalRegistry.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\IPluginHandler.cs" />
     <Compile Include="ModuleAppdomains\ModuleAssemblyLoader.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\PluginHandlerOrchestrator.cs" />

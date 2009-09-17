@@ -12,11 +12,11 @@ namespace FreeSWITCH
     {
         public void Register(InternalAppdomainServiceLocator registry)
         {
-            registry.Register<AssemblyComposerFactoryDictionary>(container =>
+            registry.Register<AssemblyComposerDictionary>(container =>
             {
-                var dictionary = new AssemblyComposerFactoryDictionary();
-                var factory1 = new DllComposerFactory();
-                var factory2 = new ScriptComposerFactory();
+                var dictionary = new AssemblyComposerDictionary();
+                Func<IAssemblyComposer> factory1 = () => {return container.Create<DllAssemblyComposer>();};
+                Func<IAssemblyComposer> factory2 = () => {return container.Create<ScriptAssemblyComposer>();};
                 dictionary.Add(".dll", factory1);
                 dictionary.Add(".exe", factory1);
                 dictionary.Add(".fsx", factory2);
@@ -25,7 +25,7 @@ namespace FreeSWITCH
                 dictionary.Add(".jsx", factory2);
                 return dictionary;
             });
-
+            registry.Register<IAssemblyCompiler>(container => { return container.Create<AssemblyCompiler>(); });
             registry.Register<PluginHandlerOrchestrator>(container =>
                 { return InternalAppdomainServiceLocator.PluginHandlerOrchestrator; });
             registry.Register<ILogger>(container =>
@@ -33,7 +33,7 @@ namespace FreeSWITCH
             registry.Register<ModuleAssemblyLoader>(container =>
                 {
                     return new ModuleAssemblyLoader(container.Create<ILogger>(),
-                       container.Create<AssemblyComposerFactoryDictionary>(),
+                       container.Create<AssemblyComposerDictionary>(),
                        container.Create<PluginHandlerOrchestrator>());
                 });
             registry.Register<List<IPluginHandler>>(container =>

@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Moq;
 using FreeSWITCH;
 
-namespace FreeSWITCH.Managed.Tests
+namespace FreeSWITCH.Managed.Tests.ModuleAppdomains.PluginTypes
 {
     [TestFixture]
     public class PluginExecutorTests

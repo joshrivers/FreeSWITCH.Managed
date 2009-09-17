@@ -12,6 +12,12 @@ namespace FreeSWITCH
 {
     public class ScriptAssemblyComposer : IAssemblyComposer
     {
+        private IAssemblyCompiler compiler;
+        public ScriptAssemblyComposer(IAssemblyCompiler compiler)
+        {
+            this.compiler = compiler;
+         
+        }
         public Assembly GetAssembly(string filePath)
         {
             Assembly asm;
@@ -21,8 +27,7 @@ namespace FreeSWITCH
             }
             else
             {
-                var compiler = new AssemblyCompiler();
-                asm = compiler.CompileAssembly(filePath);
+                asm = this.compiler.CompileAssembly(filePath);
             }
             return asm;
         }

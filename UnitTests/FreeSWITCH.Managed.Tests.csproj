@@ -55,17 +55,21 @@
   <ItemGroup>
     <Compile Include="CoreDelegatesTests.cs" />
     <Compile Include="DefaultLoaderTests.cs" />
+    <Compile Include="ModuleAppdomains\AssemblyCompilerTests.cs" />
+    <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposerTests.cs" />
+    <Compile Include="ModuleAppdomains\InternalAppdomainServiceLocatorTests.cs" />
+    <Compile Include="ModuleAppdomains\ModuleProxyTests.cs" />
     <Compile Include="TestHelpers\DefaultServiceLocatorSetup.cs" />
-    <Compile Include="DefaultServiceLocatorTests.cs" />
+    <Compile Include="PrimaryAppdomain\DefaultServiceLocatorTests.cs" />
     <Compile Include="Directors\ExecuteBackgroundCommandDirectorTests.cs" />
     <Compile Include="Directors\ExecuteCommandDirectorTests.cs" />
     <Compile Include="Directors\LogDirectorTests.cs" />
     <Compile Include="Directors\ReloadCommandDirectorTests.cs" />
     <Compile Include="Directors\RunCommandDirectorTests.cs" />
     <Compile Include="LoaderTests.cs" />
-    <Compile Include="PluginExecutorTests.cs" />
+    <Compile Include="ModuleAppdomains\PluginTypes\PluginExecutorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ObjectContainerTests.cs" />
+    <Compile Include="Types\ObjectContainerTests.cs" />
     <Compile Include="TestHelpers\InternalServiceLocatorSetup.cs" />
   </ItemGroup>
   <ItemGroup>
