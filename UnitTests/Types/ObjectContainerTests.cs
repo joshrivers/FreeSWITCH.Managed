@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using Moq;
 
-namespace FreeSWITCH.Managed.Tests
+namespace FreeSWITCH.Managed.Tests.Types
 {
     [TestFixture]
     public class ObjectContainerTests
@@ -65,6 +65,19 @@ namespace FreeSWITCH.Managed.Tests
             var result = locator.ToString();
             Assert.IsInstanceOf<string>(result);
             //Console.WriteLine(result);
+        }
+
+        [Test]
+        public void RegisterReplacesPreviousRegistration
+            ()
+        {
+            ObjectContainer locator = new ObjectContainer();
+            var log = new Mock<ILogger>();
+            locator.Register<ILogger>(c => { return log.Object; });
+            var log2 = new Mock<ILogger>();
+            locator.Register<ILogger>(c => { return log2.Object; });
+            var result = locator.Create<ILogger>();
+            Assert.AreSame(result,log2.Object);
         }
     }
 }

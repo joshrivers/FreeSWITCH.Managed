@@ -47,8 +47,8 @@ namespace FreeSWITCH
             return null;
         }
         public PluginHandlerOrchestrator PluginHandlerOrchestrator { get { return InternalAppdomainServiceLocator.Container.Create<PluginHandlerOrchestrator>(); } }
-        public LogDirector LogDirector { get { return InternalAppdomainServiceLocator.LogDirector; } }
-        public ILogger Logger { get { return InternalAppdomainServiceLocator.Logger; } }
+        public LogDirector LogDirector { get { return InternalAppdomainServiceLocator.Container.Create<LogDirector>(); } }
+        public ILogger Logger { get { return InternalAppdomainServiceLocator.Container.Create<ILogger>(); } }
         public ModuleAssemblyLoader AssemblyLoader { get { return InternalAppdomainServiceLocator.Container.Create<ModuleAssemblyLoader>(); } }
         private string masterAssemblyPath = string.Empty;
         public string MasterAssemblyPath

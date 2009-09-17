@@ -19,6 +19,15 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         {
             TestHelpers.InternalServiceLocatorSetup.ContainerReset();
         }
+
+        private void ConfirmSingletonDeclaration<T>()
+        {
+            var createdObject1 = DefaultServiceLocator.Container.Create<T>();
+            var createdObject2 = DefaultServiceLocator.Container.Create<T>();
+            Assert.IsInstanceOf<T>(createdObject1);
+            Assert.AreSame(createdObject1, createdObject2);
+        }
+
         [Test]
         public void LocatorResolvesIDirectoryController()
         {
@@ -36,6 +45,18 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
             Assert.IsInstanceOf<Func<IAssemblyComposer>>(createdObject[".csx"]);
             Assert.IsInstanceOf<Func<IAssemblyComposer>>(createdObject[".vbx"]);
             Assert.IsInstanceOf<Func<IAssemblyComposer>>(createdObject[".jsx"]);
+        }
+
+        [Test]
+        public void LocatorResolvesILogger()
+        {
+            ConfirmSingletonDeclaration<ILogger>();
+        }
+
+        [Test]
+        public void LocatorResolvesLogDirector()
+        {
+            ConfirmSingletonDeclaration<LogDirector>();
         }
     }        
 }

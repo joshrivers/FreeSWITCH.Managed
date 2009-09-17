@@ -15,8 +15,8 @@ namespace FreeSWITCH
             registry.Register<AssemblyComposerDictionary>(container =>
             {
                 var dictionary = new AssemblyComposerDictionary();
-                Func<IAssemblyComposer> factory1 = () => {return container.Create<DllAssemblyComposer>();};
-                Func<IAssemblyComposer> factory2 = () => {return container.Create<ScriptAssemblyComposer>();};
+                Func<IAssemblyComposer> factory1 = () => { return container.Create<DllAssemblyComposer>(); };
+                Func<IAssemblyComposer> factory2 = () => { return container.Create<ScriptAssemblyComposer>(); };
                 dictionary.Add(".dll", factory1);
                 dictionary.Add(".exe", factory1);
                 dictionary.Add(".fsx", factory2);
@@ -28,8 +28,8 @@ namespace FreeSWITCH
             registry.Register<IAssemblyCompiler>(container => { return container.Create<AssemblyCompiler>(); });
             registry.Register<PluginHandlerOrchestrator>(container =>
                 { return InternalAppdomainServiceLocator.PluginHandlerOrchestrator; });
-            registry.Register<ILogger>(container =>
-                { return InternalAppdomainServiceLocator.Logger; });
+            registry.RegisterSingleton<ILogger>(container => { return new LogDirector(); });
+            registry.RegisterSingleton<LogDirector>(container => { return new LogDirector(); });
             registry.Register<ModuleAssemblyLoader>(container =>
                 {
                     return new ModuleAssemblyLoader(container.Create<ILogger>(),

@@ -11,14 +11,10 @@ namespace FreeSWITCH
     public class InternalAppdomainServiceLocator : ObjectContainer
     {
         public static PluginHandlerOrchestrator PluginHandlerOrchestrator { get; private set; }
-        public static LogDirector LogDirector { get; private set; }
-        public static ILogger Logger { get; private set; }
         public static InternalAppdomainServiceLocator Container { get; private set; }
         public static string MasterAssemblyPath { get; set; }
         static InternalAppdomainServiceLocator()
         {
-            InternalAppdomainServiceLocator.LogDirector = new LogDirector();
-            InternalAppdomainServiceLocator.Logger = new LogDirector();
             InternalAppdomainServiceLocator.PluginHandlerOrchestrator = new PluginHandlerOrchestrator();
             InternalAppdomainServiceLocator.Container = new InternalAppdomainServiceLocator();
             var registry = new InternalRegistry();
