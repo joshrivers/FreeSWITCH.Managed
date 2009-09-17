@@ -5,15 +5,18 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.IO;
 using FreeSWITCH.Managed;
+using System.Text.RegularExpressions;
 
 namespace FreeSWITCH
 {
     public class DefaultPluginHandler : IPluginHandler
     {
-        private PluginHandlerOrchestrator orchestrator;
-        public DefaultPluginHandler(PluginHandlerOrchestrator orchestrator)
+        private ILogger logger;
+        public bool NoReload { get; private set; }
+        public DefaultPluginHandler(ILogger logger)
         {
-            this.orchestrator = orchestrator;
+            this.logger = logger;
+            this.NoReload = false;
         }
         public List<ApiPluginExecutor> ApiExecutors { get { return _apiExecutors; } }
         readonly List<ApiPluginExecutor> _apiExecutors = new List<ApiPluginExecutor>();
@@ -82,13 +85,13 @@ namespace FreeSWITCH
             var opts = GetOptions(allTypes);
             if ((opts & PluginOptions.NoAutoReload) == PluginOptions.NoAutoReload)
             {
-                orchestrator.NoReload = true;
+                this.NoReload = true;
             }
             AddApiPlugins(allTypes, opts);
             AddAppPlugins(allTypes, opts);
 
             // Add the script executors
-            var name = Path.GetFileName(orchestrator.FileName);
+            var name = Regex.Split(AppDomain.CurrentDomain.FriendlyName, ";")[0];
             var aliases = new List<string> { name };
             this.ApiExecutors.Add(new ApiPluginExecutor(name, aliases, () => new ScriptApiWrapper(assembly.EntryPoint.GetEntryDelegate()), opts));
             this.AppExecutors.Add(new AppPluginExecutor(name, aliases, () => new ScriptAppWrapper(assembly.EntryPoint.GetEntryDelegate()), opts));

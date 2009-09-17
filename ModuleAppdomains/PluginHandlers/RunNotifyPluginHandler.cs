@@ -10,6 +10,7 @@ namespace FreeSWITCH
 {
     public class RunNotifyPluginHandler : IPluginHandler
     {
+        public bool NoReload {get{return false;}}
         public void LoadPlugins(Assembly assembly)
         {
             var allTypes = assembly.GetExportedTypes();

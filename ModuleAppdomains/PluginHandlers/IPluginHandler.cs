@@ -10,6 +10,7 @@ namespace FreeSWITCH
 {
     public interface IPluginHandler : IRunCommand, IExecuteBackgroundCommand, IExecuteCommand
     {
+        bool NoReload { get; }
         void LoadPlugins(Assembly assembly);
         void Unload();
     }

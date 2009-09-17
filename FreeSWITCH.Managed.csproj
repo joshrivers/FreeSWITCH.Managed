@@ -110,7 +110,7 @@
     <Compile Include="ModuleAppdomains\PluginHandlers\PluginHandlerOrchestrator.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\RunNotifyPluginHandler.cs" />
     <Compile Include="Types\Exceptions\ModuleDoesNotReferenceFreeswitchManagedDllException.cs" />
-    <Compile Include="ModuleAppdomains\PluginTypes\PluginExecutor.cs" />
+    <Compile Include="ModuleAppdomains\PluginTypes\DefaultPluginExecutor.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\Script.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\ScriptApiWrapper.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\ScriptAppWrapper.cs" />

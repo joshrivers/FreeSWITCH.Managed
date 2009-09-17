@@ -12,10 +12,19 @@ namespace FreeSWITCH
     {
         public PluginHandlerOrchestrator()
         {
-            this.NoReload = false;
         }
 
-        public bool NoReload { get; set; }
+        public bool NoReload
+        {
+            get
+            {
+                foreach (var handler in handlers)
+                {
+                    if (handler.NoReload) { return true; };
+                }
+                return false;
+            }
+        }
         public string FileName { get; set; }
         private List<IPluginHandler> handlers = new List<IPluginHandler>();
 

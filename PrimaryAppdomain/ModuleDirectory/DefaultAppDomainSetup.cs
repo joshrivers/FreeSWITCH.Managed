@@ -26,7 +26,7 @@ namespace FreeSWITCH.Managed
             setup.CachePath = directories.ShadowDirectoryPath;
             setup.ShadowCopyFiles = "true";
             setup.PrivateBinPath = "managed";
-            setup.ApplicationName = Path.GetFileName(filePath) + "_" + appDomainCount;
+            setup.ApplicationName = Path.GetFileName(filePath) + ";" + appDomainCount;
             if (File.Exists(String.Format("{0}.config", filePath)))
             {
                 setup.ConfigurationFile = String.Format("{0}.config", filePath);
