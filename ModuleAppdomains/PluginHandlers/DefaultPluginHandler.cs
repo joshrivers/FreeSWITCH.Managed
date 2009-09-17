@@ -36,7 +36,7 @@ namespace FreeSWITCH
                 ApiPluginExecutor exec = ApiExecutors.Where(app => app.Aliases.Contains(fullName)).FirstOrDefault();
                 if (exec == null) { return false; }
 
-                logger.Error(string.Format( "API plugin {0} not found.", fullName));
+                //logger.Error(string.Format( "API plugin {0} not found.", fullName));
 
                 var res = exec.ExecuteApi(args, streamHandle, eventHandle);
                 return res;
@@ -59,7 +59,7 @@ namespace FreeSWITCH
                 ApiPluginExecutor exec = ApiExecutors.Where(app => app.Aliases.Contains(fullName)).FirstOrDefault();
                 if (exec == null) { return false; }
    
-                logger.Error(string.Format( "API plugin {0} not found.", fullName));
+                //logger.Error(string.Format( "API plugin {0} not found.", fullName));
 
                 return exec.ExecuteApiBackground(args);
             }
@@ -150,7 +150,7 @@ namespace FreeSWITCH
                 var args = parsed[1];
 
                 AppPluginExecutor exec = AppExecutors.Where(app => app.Aliases.Contains(fullName)).FirstOrDefault();
-                logger.Error(string.Format( "App plugin {0} not found.", fullName));
+                //logger.Error(string.Format( "App plugin {0} not found.", fullName));
                 if (exec == null) { return false; }
                 return exec.Execute(args, sessionHandle);
             }
