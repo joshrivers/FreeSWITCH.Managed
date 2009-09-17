@@ -60,6 +60,7 @@
     <Compile Include="ModuleAppdomains\InternalAppdomainServiceLocatorTests.cs" />
     <Compile Include="ModuleAppdomains\ModuleProxyTests.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\DefaultPluginHandlerTests.cs" />
+    <Compile Include="ModuleAppdomains\PluginHandlers\RunNotifyPluginHandlerTests.cs" />
     <Compile Include="TestHelpers\DefaultServiceLocatorSetup.cs" />
     <Compile Include="PrimaryAppdomain\DefaultServiceLocatorTests.cs" />
     <Compile Include="Directors\ExecuteBackgroundCommandDirectorTests.cs" />

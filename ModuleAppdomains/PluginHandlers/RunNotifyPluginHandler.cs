@@ -20,8 +20,8 @@ namespace FreeSWITCH
             if (pluginTypes.Count == 0) return;
             foreach (var pt in pluginTypes)
             {
-                var load = ((ILoadNotificationPlugin)Activator.CreateInstance(pt, true));
-                if (!load.Load())
+                var plugin = ((ILoadNotificationPlugin)Activator.CreateInstance(pt, true));
+                if (!plugin.Load())
                 {
                     throw new RunNotifyException(string.Format("Type {0} requested no loading. Assembly will not be loaded.", pt.FullName));
                 }
