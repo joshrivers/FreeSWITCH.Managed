@@ -7,7 +7,7 @@ using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public abstract class PluginExecutor : MarshalByRefObject
+    public abstract class DefaultPluginExecutor : MarshalByRefObject
     {
         public override object InitializeLifetimeService()
         {
@@ -26,7 +26,7 @@ namespace FreeSWITCH
         public PluginOptions PluginOptions { get { return pluginOptions; } }
         readonly PluginOptions pluginOptions;
 
-        protected PluginExecutor(string name, List<string> aliases, PluginOptions pluginOptions)
+        protected DefaultPluginExecutor(string name, List<string> aliases, PluginOptions pluginOptions)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentException("No name provided.");
             if (aliases == null || aliases.Count == 0) throw new ArgumentException("No aliases provided.");

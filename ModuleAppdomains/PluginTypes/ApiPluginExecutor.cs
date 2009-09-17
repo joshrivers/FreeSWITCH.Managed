@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 
 namespace FreeSWITCH
 {
-    public sealed class ApiPluginExecutor : PluginExecutor
+    public sealed class ApiPluginExecutor : DefaultPluginExecutor
     {
 
         readonly Func<IApiPlugin> createPlugin;

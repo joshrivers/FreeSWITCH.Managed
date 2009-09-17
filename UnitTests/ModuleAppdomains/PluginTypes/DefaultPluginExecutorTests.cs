@@ -9,7 +9,7 @@ using FreeSWITCH;
 namespace FreeSWITCH.Managed.Tests.ModuleAppdomains.PluginTypes
 {
     [TestFixture]
-    public class PluginExecutorTests
+    public class DefaultPluginExecutorTests
     {
         [SetUp]
         public void Setup()
@@ -21,7 +21,7 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains.PluginTypes
         {
             TestHelpers.InternalServiceLocatorSetup.ContainerReset();
         }
-        private class TestPluginExecutorImplementation : PluginExecutor
+        private class TestPluginExecutorImplementation : DefaultPluginExecutor
         {
             public TestPluginExecutorImplementation(string name, List<string> aliases, PluginOptions pluginOptions)
                 : base(name, aliases, pluginOptions)
