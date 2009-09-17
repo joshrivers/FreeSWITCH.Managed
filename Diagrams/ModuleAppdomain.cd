@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FreeSWITCH.InternalRegistry" Collapsed="true">
+    <Position X="2" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\Internal\InternalRegistry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.InternalAppdomainServiceLocator" Collapsed="true">
+    <Position X="1" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAoIAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\Internal\InternalAppdomainServiceLocator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.PluginExecutor" Collapsed="true">
+    <Position X="10.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAABAAEAAAAAAEIAAQBAEAGAAAAAAAAABQAEAA=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\PluginExecutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.AppPluginExecutor" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\AppPluginExecutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.ModuleAssemblyLoader" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEgAAECAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\ModuleAssemblyLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.ScriptApiWrapper" Collapsed="true">
+    <Position X="10" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\ScriptApiWrapper.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.RunNotifyPluginHandler" Collapsed="true">
+    <Position X="5" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACIAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ModuleAppdomains\PluginHandlers\RunNotifyPluginHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.DefaultPluginHandler" Collapsed="true">
+    <Position X="5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACYCAgAAAQABEAAAAAQAAAAAAACAAQEACICAAI=</HashCode>
+      <FileName>ModuleAppdomains\PluginHandlers\DefaultPluginHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.ScriptAppWrapper" Collapsed="true">
+    <Position X="10.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAI=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\ScriptAppWrapper.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.ModuleProxy" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAoIAAAIQAAAIAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\ModuleProxy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.AssemblyCompiler" Collapsed="true">
+    <Position X="6" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAEAAAAAAAAAAAAAABAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\AssemblyCompiler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.ApiPluginExecutor" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAABA=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\ApiPluginExecutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.PluginHandlerOrchestrator" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACIAAAAAAQAgAAAAAAAAAAAAABAAAAAAABAAAI=</HashCode>
+      <FileName>ModuleAppdomains\PluginHandlers\PluginHandlerOrchestrator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Script" Collapsed="true">
+    <Position X="12" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAggEA=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\Script.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.AppContext" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAEAAAAAAAAgAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\AppContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.AssemblyComposerFactoryDictionary" Collapsed="true">
+    <Position X="2.5" Y="3.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\AssemblyComposers\AssemblyComposerFactoryDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.DllAssemblyComposer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ModuleAppdomains\AssemblyComposers\DllAssemblyComposer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FreeSWITCH.DllComposerFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ModuleAppdomains\AssemblyComposers\DllComposerFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FreeSWITCH.ScriptAssemblyComposer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FreeSWITCH.ScriptComposerFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ModuleAppdomains\AssemblyComposers\ScriptComposerFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FreeSWITCH.ApiContext" Collapsed="true">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAgAoAAAAKAAAAAAAAAA=</HashCode>
+      <FileName>ModuleAppdomains\PluginTypes\ApiContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -39,8 +39,8 @@ namespace FreeSWITCH
             registry.Register<List<IPluginHandler>>(container =>
                 {
                     var list = new List<IPluginHandler>();
-                    list.Add(new DefaultPluginHandler(container.Create<PluginHandlerOrchestrator>()));
                     list.Add(new RunNotifyPluginHandler());
+                    list.Add(new DefaultPluginHandler(container.Create<PluginHandlerOrchestrator>()));
                     return list;
                 });
 

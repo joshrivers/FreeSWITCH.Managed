@@ -10,13 +10,6 @@ using System.Reflection.Emit;
 
 namespace FreeSWITCH
 {
-    public static class PathExtensions
-    {
-        public static string GetLoweredFileExtension(this string path)
-        {
-            return Path.GetExtension(path).ToLowerInvariant();
-        }
-    }
     public class AssemblyCompiler
     {
         public Assembly CompileAssembly(string fileName)

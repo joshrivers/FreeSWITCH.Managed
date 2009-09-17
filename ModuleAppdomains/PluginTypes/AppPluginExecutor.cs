@@ -8,7 +8,6 @@ namespace FreeSWITCH
 {
     public sealed class AppPluginExecutor : PluginExecutor
     {
-
         readonly Func<IAppPlugin> createPlugin;
 
         public AppPluginExecutor(string name, List<string> aliases, Func<IAppPlugin> creator, PluginOptions pluginOptions)

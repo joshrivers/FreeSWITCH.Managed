@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="FreeSWITCH.Loader" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Loader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.CoreDelegates" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="FreeSWITCH.CoreDelegates.ExecuteDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreDelegates.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="FreeSWITCH.CoreDelegates.ExecuteBackgroundDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreDelegates.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="FreeSWITCH.CoreDelegates.RunDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreDelegates.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="FreeSWITCH.CoreDelegates.ReloadDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CoreDelegates.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAIgAIAAAgCAQAAAAEAAAAAAAIAAAACAAAAAAAAAI=</HashCode>
+      <FileName>CoreDelegates.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultLoader" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DefaultLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultPluginOverseer" Collapsed="true">
+    <Position X="4.25" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQgAAAAAAAAAACAAAAAAAAAAAAAAAAAgAIAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\DefaultPluginOverseer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultRegistry" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\DefaultRegistry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultServiceLocator" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\DefaultServiceLocator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.AssemblyResolver" Collapsed="true">
+    <Position X="3" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAACEAAAAAAAAAAAAAAIAAAEAAAAAEA=</HashCode>
+      <FileName>PrimaryAppdomain\Utility\AssemblyResolver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultDirectoryController" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAACAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\DefaultDirectoryController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultLogger" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAYAAAAAAABCAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Logging\DefaultLogger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Managed.LogDirector" Collapsed="true">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIAAABAAAAAYAAAAAABBCgAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Logging\LogDirector.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultPluginDirectoryWatcher" Collapsed="true">
+    <Position X="6.25" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAQACAAAAAAAAAAAAAAAIgAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\DefaultPluginDirectoryWatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.PluginFileLoadTimer" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAACAAAAAAAACAAAAAAAAACAAIIAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\PluginFileLoadTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.PluginFileLoadQueue" Collapsed="true">
+    <Position X="6.75" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAgCAAgAAAAAAAIA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\PluginFileLoadQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultModuleLoader" Collapsed="true">
+    <Position X="6.75" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAQAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\DefaultModuleLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Managed.ModuleList" Collapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAACAAACAAABAAAAAAAAAAAIAAAAABAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\ModuleList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.Module" Collapsed="true">
+    <Position X="7" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAACAAAAQACAAAABAAAAgQAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\Module.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultAppDomainSetupFactory" Collapsed="true">
+    <Position X="8.5" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAABAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\DefaultAppDomainSetup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.ManagedDirectoryWatcher" Collapsed="true">
+    <Position X="8.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>PrimaryAppdomain\ModuleDirectory\ManagedDirectoryWatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.ExecuteBackgroundCommandDirector" Collapsed="true">
+    <Position X="6.25" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\ExecuteBackgroundCommandDirector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.ExecuteCommandDirector" Collapsed="true">
+    <Position X="6.25" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\ExecuteCommandDirector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.ReloadCommandDirector" Collapsed="true">
+    <Position X="6.25" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAAgAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\ReloadCommandDirector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.RunCommandDirector" Collapsed="true">
+    <Position X="6.25" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAI=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\RunCommandDirector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultExecuteBackgroundCommand" Collapsed="true">
+    <Position X="6.5" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\DefaultExecuteBackgroundCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultReloadCommand" Collapsed="true">
+    <Position X="6.5" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAAAAAAAAAAAAAAAAAAAQAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\DefaultReloadCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultRunCommand" Collapsed="true">
+    <Position X="6.5" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\DefaultRunCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FreeSWITCH.Managed.DefaultExecuteCommand" Collapsed="true">
+    <Position X="6.5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryAppdomain\Commands\DefaultExecuteCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
