@@ -131,5 +131,50 @@ namespace FreeSWITCH.Native
                 return new Guid(this.GetUuid());
             }
         }
+
+        // Need to find a better place to put these - then make them public
+        static readonly DateTime epoch = new DateTime(1970, 1, 1);
+        static DateTime epochUsToDateTime(long us)
+        {
+            return us == 0 ?
+                DateTime.MinValue :
+                epoch.AddMilliseconds((double)((decimal)us / 1000m));
+        }
+        static bool strToBool(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return false;
+            switch (s.ToLowerInvariant())
+            {
+                case "true":
+                case "yes":
+                case "on":
+                case "enable":
+                case "enabled":
+                case "active":
+                case "allow":
+                    return true;
+                default:
+                    // Numbers are true
+                    long tmp;
+                    return long.TryParse(s, out tmp);
+            }
+        }
+        static string boolToStr(bool b)
+        {
+            return b ? "true" : "false";
+        }
+
+        ChannelVariables _variables; // Set on ManagedSession init
+        public ChannelVariables Variables
+        {
+            get
+            {
+                if (_variables == null)
+                {
+                    _variables = new ChannelVariables(this);
+                }
+                return _variables;
+            }
+        }
     }
 }
