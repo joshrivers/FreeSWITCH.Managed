@@ -8,7 +8,7 @@ using Moq;
 namespace FreeSWITCH.Managed.Tests
 {
     [TestFixture]
-    public class ServiceLocatorTests
+    public class ObjectContainerTests
     {
         [Test]
         public void CreateSimpleObject()
@@ -43,7 +43,6 @@ namespace FreeSWITCH.Managed.Tests
             Assert.AreSame(result, result2);
         }
 
-
         [Test]
         public void RegisterSingletonObject()
         {
@@ -53,6 +52,19 @@ namespace FreeSWITCH.Managed.Tests
             Assert.IsAssignableFrom<object>(result);
             var result2 = locator.Create<object>();
             Assert.AreSame(result, result2);
+        }
+
+        [Test]
+        public void ToString_NoParameters_ReturnsDescription()
+        {
+            ObjectContainer locator = new ObjectContainer();
+            locator.RegisterSingleton<object>(c => { return new object(); });
+            var log = new Mock<ILogger>();
+            locator.Register<ILogger>(c => { return log.Object; });
+            locator.Configuration["Object"]=new object();
+            var result = locator.ToString();
+            Assert.IsInstanceOf<string>(result);
+            //Console.WriteLine(result);
         }
     }
 }

@@ -10,11 +10,13 @@ namespace FreeSWITCH
 {
     public interface IObjectContainer
     {
-        Dictionary<string, object> Configuration { get; }
+        SynchronizedDictionary<string, object> Configuration { get; }
         void DeclareSingleton(Type type);
         void Register<T>(Creator creator);
         void RegisterSingleton<T>(Creator creator);
         T Create<T>();
         T GetConfiguration<T>(string name);
+        string ToString();
+        void Reset();
     }
 }

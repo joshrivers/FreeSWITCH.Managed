@@ -5,13 +5,13 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.IO;
 using FreeSWITCH.Managed;
+using System.Text;
 
 namespace FreeSWITCH
 {
+    public delegate object Creator(ObjectContainer container);
     public class ObjectContainer : IObjectContainer
     {
-        public delegate object Creator(ObjectContainer container);
-
         private readonly SynchronizedDictionary<string, object> configuration =
                       new SynchronizedDictionary<string, object>();
         private readonly SynchronizedDictionary<Type, Creator> typeToCreator =
@@ -19,9 +19,9 @@ namespace FreeSWITCH
         private readonly SynchronizedDictionary<Type, object> singletons =
             new SynchronizedDictionary<Type, object>();
 
-        public Dictionary<string, object> Configuration
+        public SynchronizedDictionary<string, object> Configuration
         {
-            get { return configuration.ToDictionary(); }
+            get { return configuration; }
         }
 
         public void DeclareSingleton(Type type)
@@ -39,7 +39,7 @@ namespace FreeSWITCH
             typeToCreator.Add(typeof(T), creator);
             singletons.Add(typeof(T), this.Create<T>());
         }
-        
+
         public T Create<T>()
         {
             try
@@ -60,9 +60,7 @@ namespace FreeSWITCH
             }
             catch (Exception ex)
             {
-                var config = Environment.NewLine;
-                this.Configuration.ForEach(pair => config = string.Format("{0}{1}:{2}{3}", config, pair.Key, pair.Value, Environment.NewLine));
-                throw new Exception(string.Format("Type {0} not registered. Exception: {1}", typeof(T), ex));
+                throw new Exception(string.Format("Type {0} not registered. Exception: {1}{2}", typeof(T), ex, this.ToString()));
             }
         }
         internal object Create(Type type)
@@ -71,7 +69,7 @@ namespace FreeSWITCH
             {
                 return singletons[type];
             }
-            catch { } 
+            catch { }
             if (typeToCreator.Keys.Contains(type))
             {
                 return (typeToCreator[type](this));
@@ -89,7 +87,7 @@ namespace FreeSWITCH
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception(string.Format("Type {0} not registered. Exception: {1}", type, ex));
+                    throw new Exception(string.Format("Type {0} not registered. Exception: {1}{2}", type, ex, this.ToString()));
                 }
             }
             ParameterInfo[] constructorParameters = constructor.GetParameters();
@@ -102,11 +100,40 @@ namespace FreeSWITCH
             }
             return constructor.Invoke(parameters.ToArray());
         }
-               
+
 
         public T GetConfiguration<T>(string name)
         {
             return (T)configuration[name];
+        }
+
+        public override string ToString()
+        {
+            StringBuilder description = new StringBuilder();
+            description.AppendLine("Registered Types in Container:");
+            this.typeToCreator.Keys.ForEach(key =>
+            {
+                description.AppendLine(string.Format("{0}:{1}", key, this.typeToCreator[key]));
+            });
+            description.AppendLine("Singletons in Container:");
+            this.singletons.Keys.ForEach(key =>
+            {
+                description.AppendLine(string.Format("{0}:{1}", key, this.singletons[key]));
+            });
+            description.AppendLine("Configuration objects in Container:");
+            this.configuration.Keys.ForEach(key =>
+            {
+                description.AppendLine(string.Format("{0}:{1}", key, this.configuration[key]));
+            });
+            description.AppendLine(string.Empty);
+            return description.ToString();
+        }
+
+        public void Reset()
+        {
+            this.configuration.Clear();
+            this.singletons.Clear();
+            this.typeToCreator.Clear();
         }
     }
 }

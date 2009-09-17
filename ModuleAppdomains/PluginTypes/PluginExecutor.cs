@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
@@ -12,6 +13,7 @@ namespace FreeSWITCH
         {
             return null;
         }
+        private ILogger logger;
 
         /// <summary>Names by which this plugin may be executed.</summary>
         public List<string> Aliases { get { return aliases; } }
@@ -31,6 +33,8 @@ namespace FreeSWITCH
             this.name = name;
             this.aliases = aliases.Distinct().ToList();
             this.pluginOptions = pluginOptions;
+            // Hardwired because the container doesn't generate PluginExectors. May be a good place for a later refactoring.
+            this.logger = InternalAppdomainServiceLocator.Container.Create<ILogger>();
         }
 
         int useCount = 0;
@@ -54,10 +58,10 @@ namespace FreeSWITCH
             if (useCount == 0) onZeroUse();
         }
 
-        protected static void LogException(string action, string moduleName, Exception ex)
+        protected void LogException(string action, string moduleName, Exception ex)
         {
-            Log.WriteLine(LogLevel.Error, "{0} exception in {1}: {2}", action, moduleName, ex.Message);
-            Log.WriteLine(LogLevel.Debug, "{0} exception: {1}", moduleName, ex.ToString());
+            this.logger.Error(string.Format("{0} exception in {1}: {2}", action, moduleName, ex.Message));
+            this.logger.Debug(string.Format("{0} exception: {1}", moduleName, ex.ToString()));
         }
     }
 }

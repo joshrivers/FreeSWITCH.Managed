@@ -58,7 +58,10 @@
     <Compile Include="PrimaryAppdomain\DefaultRegistry.cs" />
     <Compile Include="PrimaryAppdomain\DefaultServiceLocator.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IModuleLoader.cs" />
-    <Compile Include="Types\ServiceLocator.cs" />
+    <Compile Include="Types\Interfaces\IObjectContainer.cs" />
+    <Compile Include="Types\Interfaces\ISynchronizedDictionary.cs" />
+    <Compile Include="Types\Interfaces\ISynchronizedList.cs" />
+    <Compile Include="Types\ObjectContainer.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\ApiBackgroundContext.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\ApiContext.cs" />
     <Compile Include="ModuleAppdomains\PluginTypes\ApiPluginExecutor.cs" />
