@@ -8,7 +8,7 @@ using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public class InternalAppdomainServiceLocator : ServiceLocator
+    public class InternalAppdomainServiceLocator : ObjectContainer
     {
         public static PluginHandlerOrchestrator PluginHandlerOrchestrator { get; private set; }
         public static LogDirector LogDirector { get; private set; }

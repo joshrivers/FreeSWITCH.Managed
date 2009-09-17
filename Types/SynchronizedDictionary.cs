@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace FreeSWITCH.Managed
 {
-    public class SynchronizedDictionary<TKey, TValue>
+    public class SynchronizedDictionary<TKey, TValue> : ISynchronizedDictionary<TKey, TValue>
     {
         protected Dictionary<TKey, TValue> innerCollection;
         protected object syncRoot;

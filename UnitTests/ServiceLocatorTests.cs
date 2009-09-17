@@ -13,7 +13,7 @@ namespace FreeSWITCH.Managed.Tests
         [Test]
         public void CreateSimpleObject()
         {
-            ServiceLocator locator = new ServiceLocator();
+            ObjectContainer locator = new ObjectContainer();
             var result = locator.Create<object>();
             Assert.IsAssignableFrom<object>(result);
         }
@@ -21,7 +21,7 @@ namespace FreeSWITCH.Managed.Tests
         [Test]
         public void CreateComplexObject()
         {
-            ServiceLocator locator = new ServiceLocator();
+            ObjectContainer locator = new ObjectContainer();
             var dc = new Mock<IDirectoryController>();
             var log = new Mock<ILogger>(); 
             var ml = new Mock<IModuleLoader>();
@@ -35,7 +35,7 @@ namespace FreeSWITCH.Managed.Tests
         [Test]
         public void CreateSingletonObject()
         {
-            ServiceLocator locator = new ServiceLocator();
+            ObjectContainer locator = new ObjectContainer();
             locator.DeclareSingleton(typeof(object));
             var result = locator.Create<object>();
             Assert.IsAssignableFrom<object>(result);
@@ -47,7 +47,7 @@ namespace FreeSWITCH.Managed.Tests
         [Test]
         public void RegisterSingletonObject()
         {
-            ServiceLocator locator = new ServiceLocator();
+            ObjectContainer locator = new ObjectContainer();
             locator.RegisterSingleton<object>(c => { return new object(); });
             var result = locator.Create<object>();
             Assert.IsAssignableFrom<object>(result);

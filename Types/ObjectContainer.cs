@@ -8,9 +8,9 @@ using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public class ServiceLocator
+    public class ObjectContainer : IObjectContainer
     {
-        public delegate object Creator(ServiceLocator container);
+        public delegate object Creator(ObjectContainer container);
 
         private readonly SynchronizedDictionary<string, object> configuration =
                       new SynchronizedDictionary<string, object>();

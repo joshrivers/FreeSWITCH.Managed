@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace FreeSWITCH.Managed
 {
-    public class SynchronizedList<T>
+    public class SynchronizedList<T> : ISynchronizedList<T>
     {
         protected List<T> innerCollection;
         protected object syncRoot;

@@ -185,5 +185,37 @@ namespace FreeSWITCH.Native {
                 }
 
             }
+            // Need to find a better place to put these - then make them public
+            static readonly DateTime epoch = new DateTime(1970, 1, 1);
+            static DateTime epochUsToDateTime(long us)
+            {
+                return us == 0 ?
+                    DateTime.MinValue :
+                    epoch.AddMilliseconds((double)((decimal)us / 1000m));
+            }
+
+            static string boolToStr(bool b)
+            {
+                return b ? "true" : "false";
+            }
+            static bool strToBool(string s)
+            {
+                if (string.IsNullOrEmpty(s)) return false;
+                switch (s.ToLowerInvariant())
+                {
+                    case "true":
+                    case "yes":
+                    case "on":
+                    case "enable":
+                    case "enabled":
+                    case "active":
+                    case "allow":
+                        return true;
+                    default:
+                        // Numbers are true
+                        long tmp;
+                        return long.TryParse(s, out tmp);
+                }
+            }
         }
 }

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace FreeSWITCH.Managed
 {
-    public class DefaultServiceLocator : ServiceLocator
+    public class DefaultServiceLocator : ObjectContainer
     {
         public static DefaultServiceLocator Container { get; private set; }
 
