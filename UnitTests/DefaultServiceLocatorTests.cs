@@ -9,6 +9,16 @@ namespace FreeSWITCH.Managed.Tests
     [TestFixture]
     public class DefaultServiceLocatorTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            TestHelpers.DefaultServiceLocatorSetup.ContainerReset();
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            TestHelpers.DefaultServiceLocatorSetup.ContainerReset();
+        }
         [Test]
         public void LocatorResolvesIDirectoryController()
         {

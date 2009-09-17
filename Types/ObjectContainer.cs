@@ -26,18 +26,18 @@ namespace FreeSWITCH
 
         public void DeclareSingleton(Type type)
         {
-            singletons.Add(type, this.Create(type));
+            singletons[type]=this.Create(type);
         }
 
         public void Register<T>(Creator creator)
         {
-            typeToCreator.Add(typeof(T), creator);
+            typeToCreator[typeof(T)]=creator;
         }
 
         public void RegisterSingleton<T>(Creator creator)
         {
-            typeToCreator.Add(typeof(T), creator);
-            singletons.Add(typeof(T), this.Create<T>());
+            typeToCreator[typeof(T)]=creator;
+            singletons[typeof(T)]=this.Create<T>();
         }
 
         public T Create<T>()
