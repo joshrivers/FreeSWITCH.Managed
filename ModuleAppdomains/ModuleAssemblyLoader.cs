@@ -14,10 +14,8 @@ namespace FreeSWITCH
         private PluginHandlerOrchestrator orchestrator;
         private ILogger logger;
         public ModuleAssemblyLoader(ILogger logger,
-           AssemblyComposerDictionary assemblyComposers,
-           PluginHandlerOrchestrator orchestrator)
+           AssemblyComposerDictionary assemblyComposers)
         {
-            this.orchestrator = orchestrator;
             this.assemblyComposers = assemblyComposers;
             this.logger = logger;
         }

@@ -30,12 +30,7 @@ namespace FreeSWITCH
             registry.DeclareSingleton(typeof(LogDirector));
             registry.RegisterSingleton<ILogger>(container => { return new LogDirector(); });
             //registry.RegisterSingleton<PluginHandlerOrchestrator>(container => { return new PluginHandlerOrchestrator(); });
-            registry.Register<ModuleAssemblyLoader>(container =>
-                {
-                    return new ModuleAssemblyLoader(container.Create<ILogger>(),
-                       container.Create<AssemblyComposerDictionary>(),
-                       container.Create<PluginHandlerOrchestrator>());
-                });
+            registry.Register<ModuleAssemblyLoader>(container => { return container.Create<ModuleAssemblyLoader>(); });
             registry.Register<List<IPluginHandler>>(container =>
                 {
                     var list = new List<IPluginHandler>();
