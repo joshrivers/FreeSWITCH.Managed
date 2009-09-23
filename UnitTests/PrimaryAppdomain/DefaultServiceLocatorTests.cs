@@ -59,7 +59,7 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         [Test]
         public void LocatorResolvesExecuteCommandDirector()
         {
-            ConfirmSingletonDeclaration<ExecuteCommandDirector>();
+            ConfirmSingletonDeclaration<ExecuteCommandOnCollection>();
         }
 
         [Test]

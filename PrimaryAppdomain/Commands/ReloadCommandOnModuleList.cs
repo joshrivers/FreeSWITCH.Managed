@@ -29,7 +29,7 @@ namespace FreeSWITCH.Managed
                 }
                 else
                 {
-                    moduleLoader.LoadModule(Path.Combine(this.directories.PluginDirectoryPath, command));
+                    moduleLoader.LoadModule(Path.Combine(this.directories.ModuleDirectoryPath, command));
                 }
                 return true;
             }

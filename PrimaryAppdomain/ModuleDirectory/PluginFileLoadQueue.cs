@@ -9,21 +9,21 @@ namespace FreeSWITCH.Managed
 {
     public class ModuleFileLoadQueue
     {
+        private IDirectoryController directories;
         private ManagedDirectoryWatcher watcher;
-        private string pluginDirectoryPath;
         public SynchronizedList<string> Files { get; private set; }
 
-        public ModuleFileLoadQueue(string pluginDirectoryPath)
+        public ModuleFileLoadQueue(IDirectoryController directories)
         {
-            this.pluginDirectoryPath = pluginDirectoryPath;
+            this.directories = directories;
             this.Files = new SynchronizedList<string>();
         }
 
         public void Initialize()
         {
-            this.watcher = new ManagedDirectoryWatcher(pluginDirectoryPath);
+            this.watcher = new ManagedDirectoryWatcher(directories.ModuleDirectoryPath);
             this.watcher.FileChanged = this.ChangedFileFound;
-            var allFiles = Directory.GetFiles(this.pluginDirectoryPath);
+            var allFiles = Directory.GetFiles(directories.ModuleDirectoryPath);
             foreach (var file in allFiles)
             {
                 this.Files.Add(file);

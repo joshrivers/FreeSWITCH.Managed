@@ -9,9 +9,9 @@ namespace FreeSWITCH.Managed
 {
     public interface IDirectoryController
     {
-        string PluginDirectoryPath { get; }
+        string ModuleDirectoryPath { get; }
         string ShadowDirectoryPath { get; }
-        bool PluginDirectoryExists();
+        bool ModuleDirectoryExists();
         void ClearShadowDirecory();
     }
 }

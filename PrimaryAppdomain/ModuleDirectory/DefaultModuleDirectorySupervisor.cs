@@ -18,15 +18,15 @@ namespace FreeSWITCH.Managed
         {
             this.directories = directories;
             this.logger = logger;
-            this.filesToLoad = new ModuleFileLoadQueue(directories.PluginDirectoryPath);
+            this.filesToLoad = new ModuleFileLoadQueue(directories);
             this.loadTimer = new ModuleFileLoadTimer(filesToLoad,moduleLoader);
         }
         public bool Initialize()
         {
-            logger.Debug(string.Format("FreeSWITCH.Managed loader is starting with directory '{0}'.", directories.PluginDirectoryPath));
-            if (!Directory.Exists(directories.PluginDirectoryPath))
+            logger.Debug(string.Format("FreeSWITCH.Managed loader is starting with directory '{0}'.", directories.ModuleDirectoryPath));
+            if (!Directory.Exists(directories.ModuleDirectoryPath))
             {
-                logger.Error(string.Format("Managed directory not found: {0}", directories.PluginDirectoryPath));
+                logger.Error(string.Format("Managed directory not found: {0}", directories.ModuleDirectoryPath));
                 return false;
             }
             filesToLoad.Initialize();

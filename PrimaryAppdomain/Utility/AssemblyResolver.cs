@@ -41,7 +41,7 @@ namespace FreeSWITCH.Managed
             }
             string[] assemblyRefernceComponents = args.Name.Split(',');
             string newAssemblyName = assemblyRefernceComponents[0];
-            string newAssemblyPath = Path.Combine(directories.PluginDirectoryPath, string.Format("{0}.dll", newAssemblyName));
+            string newAssemblyPath = Path.Combine(directories.ModuleDirectoryPath, string.Format("{0}.dll", newAssemblyName));
             logger.Info(string.Format("Resolving to: '{0}'.", newAssemblyPath));
             if (File.Exists(newAssemblyPath))
             {
