@@ -32,9 +32,9 @@ namespace FreeSWITCH.Managed
             DefaultServiceLocator.Container.Create<ExecuteCommandDirector>().Commands.Add(executecommmand);
 
             DefaultExecuteBackgroundCommand executebackgroundcommmand = DefaultServiceLocator.Container.Create<DefaultExecuteBackgroundCommand>();
-            DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandDirector>().Commands.Add(executebackgroundcommmand);
+            DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandOnCollection>().Commands.Add(executebackgroundcommmand);
 
-            DefaultReloadCommand reloadcommand = DefaultServiceLocator.Container.Create<DefaultReloadCommand>();
+            ReloadCommandOnModuleList reloadcommand = DefaultServiceLocator.Container.Create<ReloadCommandOnModuleList>();
             DefaultServiceLocator.Container.Create<ReloadCommandDirector>().Commands.Add(reloadcommand);
 
             this.resolver.AttachDefaultAssemblyResolver();

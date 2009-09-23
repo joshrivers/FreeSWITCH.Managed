@@ -14,7 +14,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void ClassContainsCommandsCollection()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new ExecuteBackgroundCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteBackgroundCommandOnCollection(logdirector.Object);
             Assert.IsNotNull(objectUnderTest.Commands);
         }
 
@@ -22,7 +22,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void ExecuteBackground_Empty_ReturnsTrue()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new ExecuteBackgroundCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteBackgroundCommandOnCollection(logdirector.Object);
             Assert.IsTrue(objectUnderTest.ExecuteBackground(string.Empty));
         }
 
@@ -33,7 +33,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IExecuteBackgroundCommand>();
             runcommand.Setup(foo => foo.ExecuteBackground(string.Empty)).Returns(false);
 
-            var objectUnderTest = new ExecuteBackgroundCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteBackgroundCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
 
             Assert.IsFalse(objectUnderTest.ExecuteBackground(string.Empty));
@@ -46,7 +46,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IExecuteBackgroundCommand>();
             runcommand.Setup(foo => foo.ExecuteBackground(string.Empty)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new ExecuteBackgroundCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteBackgroundCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
 
             Assert.IsFalse(objectUnderTest.ExecuteBackground(string.Empty));
@@ -60,7 +60,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IExecuteBackgroundCommand>();
             runcommand.Setup(foo => foo.ExecuteBackground(string.Empty)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new ExecuteBackgroundCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteBackgroundCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
             objectUnderTest.ExecuteBackground(string.Empty);
 
@@ -76,7 +76,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand2 = new Mock<IExecuteBackgroundCommand>();
             runcommand2.Setup(foo => foo.ExecuteBackground(string.Empty)).Returns(true);
 
-            var objectUnderTest = new ExecuteBackgroundCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteBackgroundCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand1.Object);
             objectUnderTest.Commands.Add(runcommand2.Object);
             objectUnderTest.ExecuteBackground(string.Empty);

@@ -45,7 +45,7 @@ namespace FreeSWITCH.Managed
             }
         }
 
-        private static void RemoveDotConfigExtensionIfPresent(string fileName)
+        private static string RemoveDotConfigExtensionIfPresent(string fileName)
         {
             if ((Path.GetExtension(fileName).ToLowerInvariant() == ".config"))
             {

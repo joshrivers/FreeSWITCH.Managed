@@ -16,7 +16,7 @@ namespace FreeSWITCH.Managed
         {
             CoreDelegates.Run = DefaultServiceLocator.Container.Create<RunCommandDirector>().Run;
             CoreDelegates.Execute = DefaultServiceLocator.Container.Create<ExecuteCommandDirector>().Execute;
-            CoreDelegates.ExecuteBackground = DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandDirector>().ExecuteBackground;
+            CoreDelegates.ExecuteBackground = DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandOnCollection>().ExecuteBackground;
             CoreDelegates.Reload = DefaultServiceLocator.Container.Create<ReloadCommandDirector>().Reload;
             var pluginOverSeer = DefaultServiceLocator.Container.Create<DefaultPluginOverseer>();
             return pluginOverSeer.Load();

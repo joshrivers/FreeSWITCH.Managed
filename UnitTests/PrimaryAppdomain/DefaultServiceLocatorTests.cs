@@ -65,7 +65,7 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         [Test]
         public void LocatorResolvesExecuteBackgroundCommandDirector()
         {
-            ConfirmSingletonDeclaration<ExecuteBackgroundCommandDirector>();
+            ConfirmSingletonDeclaration<ExecuteBackgroundCommandOnCollection>();
         }
 
         [Test]

@@ -5,12 +5,12 @@ using System.Text;
 
 namespace FreeSWITCH.Managed
 {
-    public class ExecuteBackgroundCommandDirector
+    public class ExecuteBackgroundCommandOnCollection : IExecuteBackgroundCommand
     {
         public SynchronizedList<IExecuteBackgroundCommand> Commands { get; private set; }
         private ILogger logDirector;
 
-        public ExecuteBackgroundCommandDirector(ILogger logDirector)
+        public ExecuteBackgroundCommandOnCollection(ILogger logDirector)
         {
             this.logDirector = logDirector;
             this.Commands = new SynchronizedList<IExecuteBackgroundCommand>();

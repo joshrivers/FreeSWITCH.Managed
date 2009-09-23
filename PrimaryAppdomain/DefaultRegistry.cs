@@ -27,7 +27,7 @@ namespace FreeSWITCH.Managed
             registry.DeclareSingleton(typeof(ModuleList));
             registry.DeclareSingleton(typeof(RunCommandDirector));
             registry.DeclareSingleton(typeof(ExecuteCommandDirector));
-            registry.DeclareSingleton(typeof(ExecuteBackgroundCommandDirector));
+            registry.DeclareSingleton(typeof(ExecuteBackgroundCommandOnCollection));
             registry.DeclareSingleton(typeof(ReloadCommandDirector));
             registry.DeclareSingleton(typeof(DefaultPluginOverseer));
             registry.DeclareSingleton(typeof(DefaultModuleDirectorySupervisor));

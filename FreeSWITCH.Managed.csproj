@@ -52,6 +52,7 @@
     <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposer.cs" />
     <Compile Include="ExtensionMethods\PathExtensions.cs" />
     <Compile Include="ModuleAppdomains\IAssemblyCompiler.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\IModuleList.cs" />
     <Compile Include="PrimaryAppdomain\Utility\AssemblyResolver.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultModuleLoader.cs" />
     <Compile Include="PrimaryAppdomain\DefaultRegistry.cs" />
@@ -77,7 +78,7 @@
     <Compile Include="PrimaryAppdomain\Commands\DefaultExecuteCommand.cs" />
     <Compile Include="Logging\DefaultLogger.cs" />
     <Compile Include="PrimaryAppdomain\DefaultPluginOverseer.cs" />
-    <Compile Include="PrimaryAppdomain\Commands\DefaultReloadCommand.cs" />
+    <Compile Include="PrimaryAppdomain\Commands\ReloadCommandOnModuleList.cs" />
     <Compile Include="PrimaryAppdomain\Commands\DefaultRunCommand.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IDirectoryController.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\ManagedDirectoryWatcher.cs">
@@ -85,7 +86,7 @@
     </Compile>
     <Compile Include="PrimaryAppdomain\ModuleDirectory\PluginFileLoadQueue.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\ModuleFileLoadTimer.cs" />
-    <Compile Include="PrimaryAppdomain\Commands\ExecuteBackgroundCommandDirector.cs" />
+    <Compile Include="PrimaryAppdomain\Commands\ExecuteBackgroundCommandOnCollection.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ExecuteCommandDirector.cs" />
     <Compile Include="PrimaryAppdomain\Commands\IExecuteBackgroundCommand.cs" />
     <Compile Include="PrimaryAppdomain\Commands\IExecuteCommand.cs" />

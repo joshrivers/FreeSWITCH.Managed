@@ -6,13 +6,13 @@ using System.IO;
 
 namespace FreeSWITCH.Managed
 {
-    public class DefaultReloadCommand : IReloadCommand
+    public class ReloadCommandOnModuleList : IReloadCommand
     {
         private IDirectoryController directories;
         public ModuleList moduleList;
         private IModuleLoader moduleLoader;
 
-        public DefaultReloadCommand(IDirectoryController directories, ModuleList moduleList, IModuleLoader moduleLoader)
+        public ReloadCommandOnModuleList(IDirectoryController directories, ModuleList moduleList, IModuleLoader moduleLoader)
         {
             this.directories = directories;
             this.moduleList = moduleList;
