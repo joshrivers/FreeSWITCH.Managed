@@ -11,6 +11,7 @@ namespace FreeSWITCH.Managed
     {
         public void Register(DefaultServiceLocator registry)
         {
+            //System.Diagnostics.Debugger.Break(); 
             ConfigureProxyTypes(registry);
             registry.RegisterSingleton<IDirectoryController>(container =>
             {

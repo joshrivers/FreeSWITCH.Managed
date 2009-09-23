@@ -34,9 +34,8 @@ namespace FreeSWITCH.Managed
             this.executeBackgroundCommand = executeBackgroundCommand;
             this.executeCommand = executeCommand;
             this.runCommand = runCommand;
-         
-            
         }
+
         public bool Load()
         {
             CoreDelegates.Run = this.runCommand.Run;
@@ -46,7 +45,7 @@ namespace FreeSWITCH.Managed
 
             this.resolver.AttachDefaultAssemblyResolver();
             return this.directorySupervisor.Initialize();
-            logger.Add(new DefaultLogger());
+            this.logger.Add(new DefaultLogger());
         }
     }
 }
