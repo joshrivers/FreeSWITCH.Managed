@@ -62,7 +62,10 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         [Test]
         public void LocatorResolvesPluginHandlerOrchestrator()
         {
-            ConfirmSingletonDeclaration<PluginHandlerOrchestrator>();
+            var createdObject1 = ModuleServiceLocator.Container.Create<IPluginHandlerOrchestrator>();
+            var createdObject2 = ModuleServiceLocator.Container.Create<IPluginHandlerOrchestrator>();
+            Assert.IsInstanceOf<PluginHandlerOrchestrator>(createdObject1);
+            Assert.AreSame(createdObject1, createdObject2);
         }
     }
 }

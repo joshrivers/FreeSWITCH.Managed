@@ -31,8 +31,10 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         {
             var createdObject = DefaultServiceLocator.Container.Create<ILogger>();
             var createdObject2 = DefaultServiceLocator.Container.Create<LogDirector>();
+            var createdObject3 = DefaultServiceLocator.Container.Create<ILogDirector>();
             Assert.IsInstanceOf<LogDirector>(createdObject);
             Assert.AreSame(createdObject, createdObject2);
+            Assert.AreSame(createdObject, createdObject3);
         }
 
         [Test]
@@ -40,6 +42,20 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         {
             var createdObject = DefaultServiceLocator.Container.Create<IModuleLoader>();
             Assert.IsInstanceOf<DefaultModuleLoader>(createdObject);
+        }
+
+        [Test]
+        public void LocatorResolvesModuleProxyTypeDictionary()
+        {
+            var createdObject = DefaultServiceLocator.Container.Create<ModuleProxyTypeDictionary>();
+            Assert.IsInstanceOf<ModuleProxyTypeDictionary>(createdObject);
+        }
+
+        [Test]
+        public void LocatorResolvesIAppDomainFactory()
+        {
+            var createdObject = DefaultServiceLocator.Container.Create<IAppDomainFactory>();
+            Assert.IsInstanceOf<DefaultAppDomainFactory>(createdObject);
         }
 
         private void ConfirmSingletonDeclaration<T>()
@@ -72,12 +88,6 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         public void LocatorResolvesReloadCommandDirector()
         {
             ConfirmSingletonDeclaration<ReloadCommandOnCollection>();
-        }
-
-        [Test]
-        public void LocatorResolvesDefaultPluginOverseer()
-        {
-            ConfirmSingletonDeclaration<DefaultPluginOverseer>();
         }
 
         [Test]

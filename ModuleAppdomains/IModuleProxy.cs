@@ -11,10 +11,10 @@ namespace FreeSWITCH
     public interface IModuleProxy
     {
         object InitializeLifetimeService();
-        PluginHandlerOrchestrator PluginHandlerOrchestrator { get; }
-        LogDirector LogDirector { get; }
-        LogDirector Logger { get; }
-        ModuleAssemblyLoader AssemblyLoader { get; }
+        IPluginHandlerOrchestrator PluginHandlerOrchestrator { get; }
+        ILogDirector LogDirector { get; }
+        ILogDirector Logger { get; }
+        IModuleAssemblyLoader AssemblyLoader { get; }
         string MasterAssemblyPath { get; set; }
     }
 }

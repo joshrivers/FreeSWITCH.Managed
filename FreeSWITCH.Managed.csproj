@@ -53,7 +53,9 @@
     <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposer.cs" />
     <Compile Include="ExtensionMethods\PathExtensions.cs" />
     <Compile Include="ModuleAppdomains\IAssemblyCompiler.cs" />
+    <Compile Include="ModuleAppdomains\IModuleAssemblyLoader.cs" />
     <Compile Include="ModuleAppdomains\IModuleProxy.cs" />
+    <Compile Include="ModuleAppdomains\PluginHandlers\IPluginHandlerOrchestrator.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IDefaultAppDomainFactory.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IModuleList.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\ModuleProxyTypeDictionary.cs" />
@@ -81,7 +83,6 @@
     <Compile Include="PrimaryAppdomain\Commands\ExecuteBackgroundCommandOnModuleList.cs" />
     <Compile Include="PrimaryAppdomain\Commands\DefaultExecuteCommand.cs" />
     <Compile Include="Logging\DefaultLogger.cs" />
-    <Compile Include="PrimaryAppdomain\DefaultPluginOverseer.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ReloadCommandOnModuleList.cs" />
     <Compile Include="PrimaryAppdomain\Commands\RunCommandOnModuleList.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IDirectoryController.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="PrimaryAppdomain\Commands\IRunCommand.cs" />
     <Compile Include="Logging\LogDirector.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ReloadCommandDirector.cs" />
-    <Compile Include="PrimaryAppdomain\Commands\RunCommandDirector.cs" />
+    <Compile Include="PrimaryAppdomain\Commands\RunCommandOnCollection.cs" />
     <Compile Include="CoreDelegates.cs" />
     <Compile Include="DefaultLoader.cs" />
     <Compile Include="ExtensionMethods\EntryPointExtensionMethods.cs" />

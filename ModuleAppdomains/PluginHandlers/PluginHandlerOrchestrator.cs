@@ -8,7 +8,7 @@ using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public class PluginHandlerOrchestrator: MarshalByRefObject, IPluginHandler
+    public class PluginHandlerOrchestrator : MarshalByRefObject, IPluginHandler, IPluginHandlerOrchestrator
     {
         public PluginHandlerOrchestrator()
         {

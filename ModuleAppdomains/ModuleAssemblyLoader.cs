@@ -8,14 +8,16 @@ using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public class ModuleAssemblyLoader : MarshalByRefObject
+    public class ModuleAssemblyLoader : MarshalByRefObject, IModuleAssemblyLoader
     {
         private AssemblyComposerDictionary assemblyComposers;
-        private PluginHandlerOrchestrator orchestrator;
+        private IPluginHandlerOrchestrator orchestrator;
         private ILogger logger;
         public ModuleAssemblyLoader(ILogger logger,
-           AssemblyComposerDictionary assemblyComposers)
+           AssemblyComposerDictionary assemblyComposers,
+           IPluginHandlerOrchestrator orchestrator)
         {
+            this.orchestrator = orchestrator;
             this.assemblyComposers = assemblyComposers;
             this.logger = logger;
         }
