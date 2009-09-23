@@ -14,7 +14,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void ClassContainsCommandsCollection()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new ExecuteCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteCommandOnCollection(logdirector.Object);
             Assert.IsNotNull(objectUnderTest.Commands);
         }
 
@@ -22,7 +22,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void Execute_Empty_ReturnsTrue()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new ExecuteCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteCommandOnCollection(logdirector.Object);
             Assert.IsTrue(objectUnderTest.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero));
         }
 
@@ -33,7 +33,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var executecommand = new Mock<IExecuteCommand>();
             executecommand.Setup(foo => foo.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero)).Returns(false);
 
-            var objectUnderTest = new ExecuteCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(executecommand.Object);
 
             Assert.IsFalse(objectUnderTest.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero));
@@ -46,7 +46,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var executecommand = new Mock<IExecuteCommand>();
             executecommand.Setup(foo => foo.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new ExecuteCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(executecommand.Object);
 
             Assert.IsFalse(objectUnderTest.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero));
@@ -60,7 +60,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var executecommand = new Mock<IExecuteCommand>();
             executecommand.Setup(foo => foo.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new ExecuteCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(executecommand.Object);
             objectUnderTest.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero);
 
@@ -76,7 +76,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var executecommand2 = new Mock<IExecuteCommand>();
             executecommand2.Setup(foo => foo.Execute(string.Empty, IntPtr.Zero, IntPtr.Zero)).Returns(true);
 
-            var objectUnderTest = new ExecuteCommandDirector(logdirector.Object);
+            var objectUnderTest = new ExecuteCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(executecommand1.Object);
             objectUnderTest.Commands.Add(executecommand2.Object);
 

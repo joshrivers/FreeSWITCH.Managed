@@ -74,7 +74,7 @@
     <Compile Include="ExtensionMethods\CommandStringExtensions.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultAppDomainSetup.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultDirectoryController.cs" />
-    <Compile Include="PrimaryAppdomain\Commands\DefaultExecuteBackgroundCommand.cs" />
+    <Compile Include="PrimaryAppdomain\Commands\ExecuteBackgroundCommandOnModuleList.cs" />
     <Compile Include="PrimaryAppdomain\Commands\DefaultExecuteCommand.cs" />
     <Compile Include="Logging\DefaultLogger.cs" />
     <Compile Include="PrimaryAppdomain\DefaultPluginOverseer.cs" />

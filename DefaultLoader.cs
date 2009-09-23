@@ -15,7 +15,7 @@ namespace FreeSWITCH.Managed
         public bool Load()
         {
             CoreDelegates.Run = DefaultServiceLocator.Container.Create<RunCommandDirector>().Run;
-            CoreDelegates.Execute = DefaultServiceLocator.Container.Create<ExecuteCommandDirector>().Execute;
+            CoreDelegates.Execute = DefaultServiceLocator.Container.Create<ExecuteCommandOnCollection>().Execute;
             CoreDelegates.ExecuteBackground = DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandOnCollection>().ExecuteBackground;
             CoreDelegates.Reload = DefaultServiceLocator.Container.Create<ReloadCommandDirector>().Reload;
             var pluginOverSeer = DefaultServiceLocator.Container.Create<DefaultPluginOverseer>();

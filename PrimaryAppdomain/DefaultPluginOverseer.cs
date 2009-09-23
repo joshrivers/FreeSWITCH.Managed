@@ -29,9 +29,9 @@ namespace FreeSWITCH.Managed
             DefaultServiceLocator.Container.Create<RunCommandDirector>().Commands.Add(runcommand);
 
             DefaultExecuteCommand executecommmand = DefaultServiceLocator.Container.Create<DefaultExecuteCommand>();
-            DefaultServiceLocator.Container.Create<ExecuteCommandDirector>().Commands.Add(executecommmand);
+            DefaultServiceLocator.Container.Create<ExecuteCommandOnCollection>().Commands.Add(executecommmand);
 
-            DefaultExecuteBackgroundCommand executebackgroundcommmand = DefaultServiceLocator.Container.Create<DefaultExecuteBackgroundCommand>();
+            ExecuteBackgroundCommandOnModuleList executebackgroundcommmand = DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandOnModuleList>();
             DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandOnCollection>().Commands.Add(executebackgroundcommmand);
 
             ReloadCommandOnModuleList reloadcommand = DefaultServiceLocator.Container.Create<ReloadCommandOnModuleList>();
