@@ -11,6 +11,7 @@ namespace FreeSWITCH.Managed
     {
         public void Register(DefaultServiceLocator registry)
         {
+            ConfigureProxyTypes(registry);
             registry.RegisterSingleton<IDirectoryController>(container =>
             {
                 return new DefaultDirectoryController();
@@ -32,6 +33,21 @@ namespace FreeSWITCH.Managed
             registry.DeclareSingleton(typeof(DefaultPluginOverseer));
             registry.DeclareSingleton(typeof(DefaultModuleDirectorySupervisor));
             registry.DeclareSingleton(typeof(AssemblyResolver));
+        }
+
+        public void ConfigureProxyTypes(DefaultServiceLocator registry)
+        {
+            ModuleProxyTypeDictionary dictionary = new ModuleProxyTypeDictionary();
+            dictionary.Add(".dll",typeof(ModuleProxy));
+            dictionary.Add(".exe",typeof(ModuleProxy));
+            dictionary.Add(".fsx",typeof(ModuleProxy));
+            dictionary.Add(".vbx",typeof(ModuleProxy));
+            dictionary.Add(".csx",typeof(ModuleProxy));
+            dictionary.Add(".jsx",typeof(ModuleProxy));
+            registry.RegisterSingleton<ModuleProxyTypeDictionary>(container =>
+            {
+                return dictionary;
+            });
         }
     }
 }

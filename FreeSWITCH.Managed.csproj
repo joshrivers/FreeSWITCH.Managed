@@ -48,11 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods\Extensions.cs" />
+    <Compile Include="Logging\ILogDirector.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\DllAssemblyComposer.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposer.cs" />
     <Compile Include="ExtensionMethods\PathExtensions.cs" />
     <Compile Include="ModuleAppdomains\IAssemblyCompiler.cs" />
+    <Compile Include="ModuleAppdomains\IModuleProxy.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\IDefaultAppDomainFactory.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IModuleList.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\ModuleProxyTypeDictionary.cs" />
     <Compile Include="PrimaryAppdomain\Utility\AssemblyResolver.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultModuleLoader.cs" />
     <Compile Include="PrimaryAppdomain\DefaultRegistry.cs" />
@@ -72,7 +76,7 @@
     <Compile Include="ModuleAppdomains\AssemblyComposers\AssemblyComposerDictionary.cs" />
     <Compile Include="Native\ChannelVariables.cs" />
     <Compile Include="ExtensionMethods\CommandStringExtensions.cs" />
-    <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultAppDomainSetup.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultAppDomainFactory.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultDirectoryController.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ExecuteBackgroundCommandOnModuleList.cs" />
     <Compile Include="PrimaryAppdomain\Commands\DefaultExecuteCommand.cs" />

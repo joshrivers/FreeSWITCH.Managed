@@ -40,7 +40,7 @@ using FreeSWITCH.Managed;
 
 namespace FreeSWITCH
 {
-    public class ModuleProxy : MarshalByRefObject
+    public class ModuleProxy : MarshalByRefObject, IModuleProxy
     {
         public override object InitializeLifetimeService()
         {

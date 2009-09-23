@@ -11,12 +11,19 @@ namespace FreeSWITCH.Managed
     {
         public string FilePath { get; private set; }
         public AppDomain Domain { get; private set; }
-        public ModuleProxy Proxy { get; private set; }
-        private LogDirector logger;
+        public IModuleProxy Proxy { get; private set; }
+        private IAppDomainFactory appDomainFactory;
+        private ILogDirector logger;
+        private ModuleProxyTypeDictionary proxyTypes;
         private IDirectoryController directories;
 
-        public Module(LogDirector logger, IDirectoryController directories)
+        public Module(ILogDirector logger,
+            IDirectoryController directories,
+            IAppDomainFactory appDomainFactory,
+            ModuleProxyTypeDictionary proxyTypes)
         {
+            this.proxyTypes = proxyTypes;
+            this.appDomainFactory = appDomainFactory;
             this.logger = logger;
             this.directories = directories;
         }
@@ -24,16 +31,15 @@ namespace FreeSWITCH.Managed
         public void Initialize(string filePath)
         {
             this.FilePath = filePath;
-            Type proxyType = GetProxyType();
-            if (proxyType == null) return;
+            if (!proxyTypes.ContainsKey(filePath.GetLoweredFileExtension())) { return; }
+            Type proxyType = proxyTypes[filePath.GetLoweredFileExtension()];
 
-            DefaultAppDomainSetupFactory appDomainSetupFactory = new DefaultAppDomainSetupFactory(directories);
-            var setup = appDomainSetupFactory.CreateSetup(FilePath);
-            this.Domain = AppDomain.CreateDomain(setup.ApplicationName, null, setup);
+            DefaultAppDomainFactory appDomainFactory = new DefaultAppDomainFactory(directories);
+            this.Domain = appDomainFactory.CreateAppDomain(FilePath);
 
             try
             {
-                this.Proxy = (ModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
+                this.Proxy = (IModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
                 this.logger.Add(this.Proxy.LogDirector);
                 this.Proxy.Logger.Add(this.logger);
                 this.Proxy.MasterAssemblyPath = this.FilePath;
@@ -51,25 +57,6 @@ namespace FreeSWITCH.Managed
             }
         }
 
-        private Type GetProxyType()
-        {
-            Type proxyType;
-            switch (FilePath.GetLoweredFileExtension())
-            {
-                case ".dll":
-                case ".exe": // TODO these need to come from config
-                case ".fsx":
-                case ".vbx":
-                case ".csx":
-                case ".jsx":
-                    proxyType = typeof(ModuleProxy);
-                    break;
-                default:
-                    proxyType = null;
-                    break;
-            }
-            return proxyType;
-        }
         public void Remove()
         {
             var t = new System.Threading.Thread(() =>

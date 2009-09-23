@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FreeSWITCH.Managed
 {
-    public class LogDirector : MarshalByRefObject, ILogger
+    public class LogDirector : MarshalByRefObject, ILogger, ILogDirector
     {
         public SynchronizedList<ILogger> Loggers { get; private set; }
 

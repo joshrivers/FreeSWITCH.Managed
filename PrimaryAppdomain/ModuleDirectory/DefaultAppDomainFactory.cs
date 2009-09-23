@@ -6,14 +6,20 @@ using System.IO;
 
 namespace FreeSWITCH.Managed
 {
-    public class DefaultAppDomainSetupFactory
+    public class DefaultAppDomainFactory : IAppDomainFactory
     {
         private IDirectoryController directories;
         private int appDomainCount = 0;
 
-        public DefaultAppDomainSetupFactory(IDirectoryController directories)
+        public DefaultAppDomainFactory(IDirectoryController directories)
         {
             this.directories = directories;
+        }
+
+        public AppDomain CreateAppDomain(string filePath)
+        {
+            var setup = this.CreateSetup(filePath);
+            return AppDomain.CreateDomain(setup.ApplicationName, null, setup);
         }
 
         public AppDomainSetup CreateSetup(string filePath)
