@@ -49,6 +49,7 @@ namespace FreeSWITCH
         // calls to those delegates.
         public static bool Load()
         {
+            //Log.WriteLine(LogLevel.Alert, "Starting Loader");
             CoreDelegates.InitializeCoreDelegates();
             return DefaultLoader.Loader.Load();
         }

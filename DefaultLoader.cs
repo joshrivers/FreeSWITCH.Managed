@@ -10,7 +10,7 @@ namespace FreeSWITCH.Managed
         private DefaultModuleDirectorySupervisor directorySupervisor;
         private ExecuteBackgroundCommandOnCollection executeBackgroundCommand;
         private ExecuteCommandOnCollection executeCommand;
-        private ILogDirector logger;
+        private ILoggerContainer logger;
         private ReloadCommandOnCollection reloadCommand;
         private AssemblyResolver resolver;
         private RunCommandOnCollection runCommand;
@@ -25,7 +25,7 @@ namespace FreeSWITCH.Managed
             ReloadCommandOnCollection reloadCommand,
             AssemblyResolver resolver,
             DefaultModuleDirectorySupervisor directorySupervisor,
-            ILogDirector logger)
+            ILoggerContainer logger)
         {
             this.logger = logger;
             this.directorySupervisor = directorySupervisor;
@@ -43,9 +43,9 @@ namespace FreeSWITCH.Managed
             CoreDelegates.ExecuteBackground = this.executeBackgroundCommand.ExecuteBackground;
             CoreDelegates.Reload = this.reloadCommand.Reload;
 
+            this.logger.Info("Load completed.");
             this.resolver.AttachDefaultAssemblyResolver();
             return this.directorySupervisor.Initialize();
-            this.logger.Add(new DefaultLogger());
         }
     }
 }

@@ -12,8 +12,8 @@ namespace FreeSWITCH
     {
         object InitializeLifetimeService();
         IPluginHandlerOrchestrator PluginHandlerOrchestrator { get; }
-        ILogDirector LogDirector { get; }
-        ILogDirector Logger { get; }
+        ILoggerContainer LogDirector { get; }
+        ILoggerContainer Logger { get; }
         IModuleAssemblyLoader AssemblyLoader { get; }
         string MasterAssemblyPath { get; set; }
     }

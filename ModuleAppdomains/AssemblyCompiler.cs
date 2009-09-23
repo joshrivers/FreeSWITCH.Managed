@@ -25,7 +25,7 @@ namespace FreeSWITCH
             var fileExtension = fileName.GetLoweredFileExtension();
             CodeDomProvider codeDom = GetCodeDomProvider(fileExtension);
             CompilerParameters parameters = GetCompilerParameters(fileExtension);
-            Log.WriteLine(LogLevel.Info, "Compiling {0}", fileName);
+            logger.Info(string.Format("Compiling {0}", fileName));
             var compilerResult = codeDom.CompileAssemblyFromFile(parameters, fileName);
 
             var errors = compilerResult.Errors.Cast<CompilerError>().Where(x => !x.IsWarning).ToList();
@@ -34,7 +34,7 @@ namespace FreeSWITCH
                 LogErrors(fileName, errors);
                 throw new ScriptDoesNotCompileException(fileName);
             }
-            Log.WriteLine(LogLevel.Info, "File {0} compiled successfully.", fileName);
+            logger.Info(string.Format( "File {0} compiled successfully.", fileName));
             return compilerResult.CompiledAssembly;
         }
 

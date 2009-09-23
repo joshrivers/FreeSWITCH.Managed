@@ -40,7 +40,7 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         public void Logger_Get_ReturnsLogDirectorFromContainer()
         {
             var createdObject = new ModuleProxy();
-            var logger = ModuleServiceLocator.Container.Create<LogDirector>();
+            var logger = ModuleServiceLocator.Container.Create<LoggerContainer>();
             Assert.AreSame(createdObject.LogDirector, logger);
         }
     }

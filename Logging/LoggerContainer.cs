@@ -5,11 +5,11 @@ using System.Text;
 
 namespace FreeSWITCH.Managed
 {
-    public class LogDirector : MarshalByRefObject, ILogger, ILogDirector
+    public class LoggerContainer : MarshalByRefObject, ILogger, ILoggerContainer
     {
         public SynchronizedList<ILogger> Loggers { get; private set; }
 
-        public LogDirector()
+        public LoggerContainer()
         {
             this.Loggers = new SynchronizedList<ILogger>();
         }

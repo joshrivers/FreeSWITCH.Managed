@@ -23,11 +23,11 @@ namespace FreeSWITCH.Managed.Tests.Types
         {
             ObjectContainer locator = new ObjectContainer();
             var dc = new Mock<IDirectoryController>();
-            var log = new Mock<ILogDirector>();
+            var log = new Mock<ILoggerContainer>();
             var log1 = new Mock<ILogger>();
             var ml = new Mock<IModuleLoader>();
             locator.Register<IDirectoryController>(c => { return dc.Object; });
-            locator.Register<ILogDirector>(c => { return log.Object; });
+            locator.Register<ILoggerContainer>(c => { return log.Object; });
             locator.Register<ILogger>(c => { return log1.Object; });
             locator.Register<IModuleLoader>(c => { return ml.Object; });
             var result = locator.Create<DefaultLoader>();

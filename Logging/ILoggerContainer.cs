@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FreeSWITCH.Managed
 {
-    public interface ILogDirector : ILogger
+    public interface ILoggerContainer : ILogger
     {
         SynchronizedList<ILogger> Loggers { get; }
         void Add(ILogger logger);

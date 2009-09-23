@@ -13,18 +13,18 @@ namespace FreeSWITCH.Managed
         public AppDomain Domain { get; private set; }
         public IModuleProxy Proxy { get; private set; }
         private IAppDomainFactory appDomainFactory;
-        private ILogDirector logger;
+        private ILoggerContainer primaryLoggerContainer;
         private ModuleProxyTypeDictionary proxyTypes;
         private IDirectoryController directories;
 
-        public Module(ILogDirector logger,
+        public Module(ILoggerContainer primaryLoggerContainer,
             IDirectoryController directories,
             IAppDomainFactory appDomainFactory,
             ModuleProxyTypeDictionary proxyTypes)
         {
             this.proxyTypes = proxyTypes;
             this.appDomainFactory = appDomainFactory;
-            this.logger = logger;
+            this.primaryLoggerContainer = primaryLoggerContainer;
             this.directories = directories;
         }
 
@@ -40,8 +40,8 @@ namespace FreeSWITCH.Managed
             try
             {
                 this.Proxy = (IModuleProxy)Domain.CreateInstanceAndUnwrap(proxyType.Assembly.FullName, proxyType.FullName, null);
-                this.logger.Add(this.Proxy.LogDirector);
-                this.Proxy.Logger.Add(this.logger);
+                this.primaryLoggerContainer.Add(this.Proxy.LogDirector);
+                this.Proxy.Logger.Add(this.primaryLoggerContainer);
                 this.Proxy.MasterAssemblyPath = this.FilePath;
                 bool success = this.Proxy.AssemblyLoader.Load(this.FilePath);
                 if (!success)
@@ -51,7 +51,7 @@ namespace FreeSWITCH.Managed
             }
             catch (Exception ex)
             {
-                logger.Alert(string.Format("Exception loading {0}: {1}", FilePath, ex.ToString()));
+                primaryLoggerContainer.Alert(string.Format("Exception loading {0}: {1}", FilePath, ex.ToString()));
                 AppDomain.Unload(this.Domain);
                 throw;
             }
@@ -59,10 +59,11 @@ namespace FreeSWITCH.Managed
 
         public void Remove()
         {
+            this.primaryLoggerContainer.Remove(this.Proxy.LogDirector);
             var t = new System.Threading.Thread(() =>
             {
                 var friendlyName = this.Domain.FriendlyName;
-                logger.Info(string.Format("Starting to unload {0}, domain {1}.", this.FilePath, friendlyName));
+                primaryLoggerContainer.Info(string.Format("Starting to unload {0}, domain {1}.", this.FilePath, friendlyName));
                 try
                 {
                     var d = this.Domain;
@@ -70,11 +71,11 @@ namespace FreeSWITCH.Managed
                     this.Proxy = null;
                     this.Domain = null;
                     AppDomain.Unload(d);
-                    logger.Info(string.Format("Unloaded {0}, domain {1}.", this.FilePath, friendlyName));
+                    primaryLoggerContainer.Info(string.Format("Unloaded {0}, domain {1}.", this.FilePath, friendlyName));
                 }
                 catch (Exception ex)
                 {
-                    logger.Alert(string.Format("Could not unload {0}, domain {1}: {2}", this.FilePath, friendlyName, ex.ToString()));
+                    primaryLoggerContainer.Alert(string.Format("Could not unload {0}, domain {1}: {2}", this.FilePath, friendlyName, ex.ToString()));
                 }
             }) { Priority = System.Threading.ThreadPriority.BelowNormal, IsBackground = true };
             t.Start();

@@ -56,7 +56,7 @@ namespace FreeSWITCH.Managed.Tests.ModuleAppdomains
         [Test]
         public void LocatorResolvesLogDirector()
         {
-            ConfirmSingletonDeclaration<LogDirector>();
+            ConfirmSingletonDeclaration<LoggerContainer>();
         }
 
         [Test]

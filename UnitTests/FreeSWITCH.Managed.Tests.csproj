@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppdomainTests\AppdomainExplorationTests.cs" />
     <Compile Include="CoreDelegatesTests.cs" />
     <Compile Include="DefaultLoaderTests.cs" />
     <Compile Include="ModuleAppdomains\AssemblyCompilerTests.cs" />

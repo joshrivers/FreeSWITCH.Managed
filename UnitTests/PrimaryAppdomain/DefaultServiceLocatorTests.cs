@@ -30,9 +30,9 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         public void LocatorResolvesLogger()
         {
             var createdObject = DefaultServiceLocator.Container.Create<ILogger>();
-            var createdObject2 = DefaultServiceLocator.Container.Create<LogDirector>();
-            var createdObject3 = DefaultServiceLocator.Container.Create<ILogDirector>();
-            Assert.IsInstanceOf<LogDirector>(createdObject);
+            var createdObject2 = DefaultServiceLocator.Container.Create<LoggerContainer>();
+            var createdObject3 = DefaultServiceLocator.Container.Create<ILoggerContainer>();
+            Assert.IsInstanceOf<LoggerContainer>(createdObject);
             Assert.AreSame(createdObject, createdObject2);
             Assert.AreSame(createdObject, createdObject3);
         }

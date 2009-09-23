@@ -26,9 +26,10 @@ namespace FreeSWITCH
                 return dictionary;
             });
             registry.Register<IAssemblyCompiler>(container => { return container.Create<AssemblyCompiler>(); });
-            registry.RegisterSingleton<IPluginHandlerOrchestrator>(container => { return container.Create<PluginHandlerOrchestrator>(); }); 
-            registry.DeclareSingleton(typeof(LogDirector));
-            registry.RegisterSingleton<ILogger>(container => { return new LogDirector(); });
+            registry.RegisterSingleton<IPluginHandlerOrchestrator>(container => { return container.Create<PluginHandlerOrchestrator>(); });
+            registry.DeclareSingleton(typeof(LoggerContainer));
+            registry.RegisterSingleton<ILoggerContainer>(container => { return container.Create<LoggerContainer>(); });
+            registry.RegisterSingleton<ILogger>(container => { return new LoggerContainer(); });
             //registry.RegisterSingleton<PluginHandlerOrchestrator>(container => { return new PluginHandlerOrchestrator(); });
             registry.Register<IModuleAssemblyLoader>(container => { return container.Create<ModuleAssemblyLoader>(); });
             registry.Register<List<IPluginHandler>>(container =>

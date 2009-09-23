@@ -17,14 +17,19 @@ namespace FreeSWITCH.Managed
             {
                 return new DefaultDirectoryController();
             });
-            registry.DeclareSingleton(typeof(LogDirector));
-            registry.RegisterSingleton<ILogger>(container =>
+            registry.RegisterSingleton<LoggerContainer>(container =>
             {
-                return container.Create<LogDirector>();
+                var logger = new LoggerContainer();
+                logger.Add(new DefaultLogger());
+                return logger;
             });
-            registry.RegisterSingleton<ILogDirector>(container =>
+            registry.Register<ILogger>(container =>
             {
-                return container.Create<LogDirector>();
+                return container.Create<LoggerContainer>();
+            });
+            registry.Register<ILoggerContainer>(container =>
+            {
+                return container.Create<LoggerContainer>();
             });
             registry.Register<IModuleLoader>(container =>
             {
@@ -41,6 +46,7 @@ namespace FreeSWITCH.Managed
             registry.DeclareSingleton(typeof(ReloadCommandOnCollection));
             registry.DeclareSingleton(typeof(DefaultModuleDirectorySupervisor));
             registry.DeclareSingleton(typeof(AssemblyResolver));
+            //registry.DeclareSingleton(typeof(DefaultLoader));
             AddCommandHandlersToCollections();
 
         }

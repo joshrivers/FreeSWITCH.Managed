@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods\Extensions.cs" />
-    <Compile Include="Logging\ILogDirector.cs" />
+    <Compile Include="Logging\ILoggerContainer.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\DllAssemblyComposer.cs" />
     <Compile Include="ModuleAppdomains\AssemblyComposers\ScriptAssemblyComposer.cs" />
     <Compile Include="ExtensionMethods\PathExtensions.cs" />
@@ -98,7 +98,7 @@
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="PrimaryAppdomain\Commands\IReloadCommand.cs" />
     <Compile Include="PrimaryAppdomain\Commands\IRunCommand.cs" />
-    <Compile Include="Logging\LogDirector.cs" />
+    <Compile Include="Logging\LoggerContainer.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ReloadCommandDirector.cs" />
     <Compile Include="PrimaryAppdomain\Commands\RunCommandOnCollection.cs" />
     <Compile Include="CoreDelegates.cs" />

@@ -13,7 +13,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         [Test]
         public void ClassContainsCommandsCollection()
         {
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             Assert.IsNotNull(objectUnderTest.Loggers);
         }
 
@@ -22,7 +22,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         {
             var subLogger = new Mock<ILogger>();
             subLogger.Setup(foo => foo.Debug("Test Message"));
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             objectUnderTest.Loggers.Add(subLogger.Object);
             objectUnderTest.Debug("Test Message");
             subLogger.VerifyAll();
@@ -33,7 +33,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         {
             var subLogger = new Mock<ILogger>();
             subLogger.Setup(foo => foo.Alert("Test Message"));
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             objectUnderTest.Loggers.Add(subLogger.Object);
             objectUnderTest.Alert("Test Message");
             subLogger.VerifyAll();
@@ -45,7 +45,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         {
             var subLogger = new Mock<ILogger>();
             subLogger.Setup(foo => foo.Critical("Test Message"));
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             objectUnderTest.Loggers.Add(subLogger.Object);
             objectUnderTest.Critical("Test Message");
             subLogger.VerifyAll();
@@ -57,7 +57,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         {
             var subLogger = new Mock<ILogger>();
             subLogger.Setup(foo => foo.Error("Test Message"));
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             objectUnderTest.Loggers.Add(subLogger.Object);
             objectUnderTest.Error("Test Message");
             subLogger.VerifyAll();
@@ -69,7 +69,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         {
             var subLogger = new Mock<ILogger>();
             subLogger.Setup(foo => foo.Notice("Test Message"));
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             objectUnderTest.Loggers.Add(subLogger.Object);
             objectUnderTest.Notice("Test Message");
             subLogger.VerifyAll();
@@ -81,7 +81,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         {
             var subLogger = new Mock<ILogger>();
             subLogger.Setup(foo => foo.Warning("Test Message"));
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             objectUnderTest.Loggers.Add(subLogger.Object);
             objectUnderTest.Warning("Test Message");
             subLogger.VerifyAll();
@@ -96,7 +96,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             subLogger2.Setup(foo => foo.Info("Test Message")).Throws(new Exception());
             var subLogger3 = new Mock<ILogger>();
             subLogger3.Setup(foo => foo.Info("Test Message"));
-            var objectUnderTest = new LogDirector();
+            var objectUnderTest = new LoggerContainer();
             objectUnderTest.Loggers.Add(subLogger1.Object);
             objectUnderTest.Loggers.Add(subLogger2.Object);
             objectUnderTest.Loggers.Add(subLogger3.Object);
