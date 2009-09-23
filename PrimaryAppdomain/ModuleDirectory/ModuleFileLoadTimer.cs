@@ -7,15 +7,15 @@ using System.Threading;
 
 namespace FreeSWITCH.Managed
 {
-    public class PluginFileLoadTimer
+    public class ModuleFileLoadTimer
     {
         private Timer loadTick;
-        private PluginFileLoadQueue filesToLoad;
+        private ModuleFileLoadQueue modulesToLoad;
         private IModuleLoader moduleLoader;
 
-        public PluginFileLoadTimer(PluginFileLoadQueue filesToLoad, IModuleLoader moduleLoader)
+        public ModuleFileLoadTimer(ModuleFileLoadQueue modulesToLoad, IModuleLoader moduleLoader)
         {
-            this.filesToLoad = filesToLoad;
+            this.modulesToLoad = modulesToLoad;
             this.moduleLoader = moduleLoader;
             loadTick = new System.Threading.Timer(this.OnTick);
         }
@@ -33,8 +33,8 @@ namespace FreeSWITCH.Managed
 
         public void Load()
         {
-            var items = filesToLoad.Files.Items;
-            filesToLoad.Files.Clear();
+            var items = modulesToLoad.Files.Items;
+            modulesToLoad.Files.Clear();
             foreach (var file in items)
             {
                 //Todo: eliminate this static reference.

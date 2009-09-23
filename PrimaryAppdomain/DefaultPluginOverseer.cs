@@ -9,13 +9,13 @@ namespace FreeSWITCH.Managed
 {
     public class DefaultPluginOverseer
     {
-        private DefaultPluginDirectoryWatcher watcher;
+        private DefaultModuleDirectorySupervisor watcher;
         private IDirectoryController directories;
         private AssemblyResolver resolver;
         private ILogger logger;
 
         public DefaultPluginOverseer(IDirectoryController directories, LogDirector logger,
-            DefaultPluginDirectoryWatcher watcher, AssemblyResolver resolver)
+            DefaultModuleDirectorySupervisor watcher, AssemblyResolver resolver)
         {
             this.resolver = resolver;
             this.directories = directories;
@@ -39,7 +39,7 @@ namespace FreeSWITCH.Managed
 
             this.resolver.AttachDefaultAssemblyResolver();
 
-            this.watcher = DefaultServiceLocator.Container.Create<DefaultPluginDirectoryWatcher>();
+            this.watcher = DefaultServiceLocator.Container.Create<DefaultModuleDirectorySupervisor>();
             return this.watcher.Initialize();
         }
     }

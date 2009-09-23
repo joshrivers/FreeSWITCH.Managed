@@ -7,19 +7,19 @@ using System.Reflection;
 
 namespace FreeSWITCH.Managed
 {
-    public class DefaultPluginDirectoryWatcher
+    public class DefaultModuleDirectorySupervisor
     {
         public IDirectoryController directories { get; private set; }
         public ILogger logger { get; private set; }
-        public PluginFileLoadQueue filesToLoad { get; private set; }
-        public PluginFileLoadTimer loadTimer { get; private set; }
+        public ModuleFileLoadQueue filesToLoad { get; private set; }
+        public ModuleFileLoadTimer loadTimer { get; private set; }
 
-        public DefaultPluginDirectoryWatcher(IDirectoryController directories, ILogger logger, IModuleLoader moduleLoader)
+        public DefaultModuleDirectorySupervisor(IDirectoryController directories, ILogger logger, IModuleLoader moduleLoader)
         {
             this.directories = directories;
             this.logger = logger;
-            this.filesToLoad = new PluginFileLoadQueue(directories.PluginDirectoryPath);
-            this.loadTimer = new PluginFileLoadTimer(filesToLoad,moduleLoader);
+            this.filesToLoad = new ModuleFileLoadQueue(directories.PluginDirectoryPath);
+            this.loadTimer = new ModuleFileLoadTimer(filesToLoad,moduleLoader);
         }
         public bool Initialize()
         {

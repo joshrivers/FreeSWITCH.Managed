@@ -30,7 +30,7 @@ namespace FreeSWITCH.Managed
             registry.DeclareSingleton(typeof(ExecuteBackgroundCommandDirector));
             registry.DeclareSingleton(typeof(ReloadCommandDirector));
             registry.DeclareSingleton(typeof(DefaultPluginOverseer));
-            registry.DeclareSingleton(typeof(DefaultPluginDirectoryWatcher));
+            registry.DeclareSingleton(typeof(DefaultModuleDirectorySupervisor));
             registry.DeclareSingleton(typeof(AssemblyResolver));
         }
     }

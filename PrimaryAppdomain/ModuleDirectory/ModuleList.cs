@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace FreeSWITCH.Managed
 {
-    public class ModuleList : SynchronizedList<Module>
+    public class ModuleList : SynchronizedList<Module>, IModuleList
     {
         public List<Module> this[string fileName]
         {

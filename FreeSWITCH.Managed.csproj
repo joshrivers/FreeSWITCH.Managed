@@ -84,7 +84,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PrimaryAppdomain\ModuleDirectory\PluginFileLoadQueue.cs" />
-    <Compile Include="PrimaryAppdomain\ModuleDirectory\PluginFileLoadTimer.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\ModuleFileLoadTimer.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ExecuteBackgroundCommandDirector.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ExecuteCommandDirector.cs" />
     <Compile Include="PrimaryAppdomain\Commands\IExecuteBackgroundCommand.cs" />
@@ -122,7 +122,7 @@
     <Compile Include="Types\Exceptions\ScriptDoesNotCompileException.cs" />
     <Compile Include="Types\SynchronizedDictionary.cs" />
     <Compile Include="Types\SynchronizedList.cs" />
-    <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultPluginDirectoryWatcher.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultModuleDirectorySupervisor.cs" />
     <Compile Include="Native\ManagedSession.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Native\Log.cs" />

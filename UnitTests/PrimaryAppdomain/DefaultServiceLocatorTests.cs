@@ -83,7 +83,7 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         [Test]
         public void LocatorResolvesDefaultPluginDirectoryWatcher()
         {
-            ConfirmSingletonDeclaration<DefaultPluginDirectoryWatcher>();
+            ConfirmSingletonDeclaration<DefaultModuleDirectorySupervisor>();
         }
 
         [Test]
