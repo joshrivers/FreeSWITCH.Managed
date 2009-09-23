@@ -53,7 +53,7 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         [Test]
         public void LocatorResolvesRunCommandDirector()
         {
-            ConfirmSingletonDeclaration<RunCommandDirector>();
+            ConfirmSingletonDeclaration<RunCommandOnCollection>();
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         [Test]
         public void LocatorResolvesReloadCommandDirector()
         {
-            ConfirmSingletonDeclaration<ReloadCommandDirector>();
+            ConfirmSingletonDeclaration<ReloadCommandOnCollection>();
         }
 
         [Test]

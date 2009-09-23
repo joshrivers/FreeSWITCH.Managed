@@ -5,12 +5,12 @@ using System.Text;
 
 namespace FreeSWITCH.Managed
 {
-    public class ReloadCommandDirector
+    public class ReloadCommandOnCollection : IReloadCommand
     {
         public SynchronizedList<IReloadCommand> Commands { get; private set; }
         private ILogger logDirector;
 
-        public ReloadCommandDirector(ILogger logDirector)
+        public ReloadCommandOnCollection(ILogger logDirector)
         {
             this.logDirector = logDirector;
             this.Commands = new SynchronizedList<IReloadCommand>();

@@ -79,7 +79,7 @@
     <Compile Include="Logging\DefaultLogger.cs" />
     <Compile Include="PrimaryAppdomain\DefaultPluginOverseer.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ReloadCommandOnModuleList.cs" />
-    <Compile Include="PrimaryAppdomain\Commands\DefaultRunCommand.cs" />
+    <Compile Include="PrimaryAppdomain\Commands\RunCommandOnModuleList.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IDirectoryController.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\ManagedDirectoryWatcher.cs">
       <SubType>Component</SubType>
@@ -87,7 +87,7 @@
     <Compile Include="PrimaryAppdomain\ModuleDirectory\PluginFileLoadQueue.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\ModuleFileLoadTimer.cs" />
     <Compile Include="PrimaryAppdomain\Commands\ExecuteBackgroundCommandOnCollection.cs" />
-    <Compile Include="PrimaryAppdomain\Commands\ExecuteCommandDirector.cs" />
+    <Compile Include="PrimaryAppdomain\Commands\ExecuteCommandOnCollection.cs" />
     <Compile Include="PrimaryAppdomain\Commands\IExecuteBackgroundCommand.cs" />
     <Compile Include="PrimaryAppdomain\Commands\IExecuteCommand.cs" />
     <Compile Include="Logging\ILogger.cs" />

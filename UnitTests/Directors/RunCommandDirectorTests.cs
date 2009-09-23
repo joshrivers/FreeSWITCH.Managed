@@ -14,7 +14,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void ClassContainsCommandsCollection()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new RunCommandDirector(logdirector.Object);
+            var objectUnderTest = new RunCommandOnCollection(logdirector.Object);
             Assert.IsNotNull(objectUnderTest.Commands);
         }
 
@@ -22,7 +22,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void Run_Empty_ReturnsTrue()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new RunCommandDirector(logdirector.Object);
+            var objectUnderTest = new RunCommandOnCollection(logdirector.Object);
             Assert.IsTrue(objectUnderTest.Run(string.Empty,IntPtr.Zero));
         }
 
@@ -33,7 +33,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IRunCommand>();
             runcommand.Setup(foo => foo.Run(string.Empty, IntPtr.Zero)).Returns(false);
 
-            var objectUnderTest = new RunCommandDirector(logdirector.Object);
+            var objectUnderTest = new RunCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
 
             Assert.IsFalse(objectUnderTest.Run(string.Empty, IntPtr.Zero));
@@ -46,7 +46,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IRunCommand>();
             runcommand.Setup(foo => foo.Run(string.Empty, IntPtr.Zero)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new RunCommandDirector(logdirector.Object);
+            var objectUnderTest = new RunCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
 
             Assert.IsFalse(objectUnderTest.Run(string.Empty, IntPtr.Zero));
@@ -60,7 +60,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IRunCommand>();
             runcommand.Setup(foo => foo.Run(string.Empty, IntPtr.Zero)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new RunCommandDirector(logdirector.Object);
+            var objectUnderTest = new RunCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
             objectUnderTest.Run(string.Empty, IntPtr.Zero);
 
@@ -76,7 +76,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand2 = new Mock<IRunCommand>();
             runcommand2.Setup(foo => foo.Run(string.Empty, IntPtr.Zero)).Returns(true);
 
-            var objectUnderTest = new RunCommandDirector(logdirector.Object);
+            var objectUnderTest = new RunCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand1.Object);
             objectUnderTest.Commands.Add(runcommand2.Object);
             objectUnderTest.Run(string.Empty, IntPtr.Zero);

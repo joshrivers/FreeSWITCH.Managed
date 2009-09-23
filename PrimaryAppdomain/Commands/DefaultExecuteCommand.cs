@@ -6,10 +6,10 @@ using System.Collections.ObjectModel;
 
 namespace FreeSWITCH.Managed
 {
-    public class DefaultExecuteCommand : IExecuteCommand
+    public class ExecuteCommandOnModuleList : IExecuteCommand
     {
         public ModuleList moduleList;
-        public DefaultExecuteCommand(ModuleList moduleList)
+        public ExecuteCommandOnModuleList(ModuleList moduleList)
         {
             this.moduleList = moduleList;
         }

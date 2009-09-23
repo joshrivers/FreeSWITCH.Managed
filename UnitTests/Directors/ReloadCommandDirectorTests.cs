@@ -14,7 +14,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void ClassContainsCommandsCollection()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new ReloadCommandDirector(logdirector.Object);
+            var objectUnderTest = new ReloadCommandOnCollection(logdirector.Object);
             Assert.IsNotNull(objectUnderTest.Commands);
         }
 
@@ -22,7 +22,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
         public void Reload_Empty_ReturnsTrue()
         {
             var logdirector = new Mock<ILogger>();
-            var objectUnderTest = new ReloadCommandDirector(logdirector.Object);
+            var objectUnderTest = new ReloadCommandOnCollection(logdirector.Object);
             Assert.IsTrue(objectUnderTest.Reload(string.Empty));
         }
 
@@ -33,7 +33,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IReloadCommand>();
             runcommand.Setup(foo => foo.Reload(string.Empty)).Returns(false);
 
-            var objectUnderTest = new ReloadCommandDirector(logdirector.Object);
+            var objectUnderTest = new ReloadCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
 
             Assert.IsFalse(objectUnderTest.Reload(string.Empty));
@@ -46,7 +46,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IReloadCommand>();
             runcommand.Setup(foo => foo.Reload(string.Empty)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new ReloadCommandDirector(logdirector.Object);
+            var objectUnderTest = new ReloadCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
 
             Assert.IsFalse(objectUnderTest.Reload(string.Empty));
@@ -60,7 +60,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand = new Mock<IReloadCommand>();
             runcommand.Setup(foo => foo.Reload(string.Empty)).Throws(new Exception("Test Exception"));
 
-            var objectUnderTest = new ReloadCommandDirector(logdirector.Object);
+            var objectUnderTest = new ReloadCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand.Object);
             objectUnderTest.Reload(string.Empty);
 
@@ -76,7 +76,7 @@ namespace FreeSWITCH.Managed.Tests.Directors
             var runcommand2 = new Mock<IReloadCommand>();
             runcommand2.Setup(foo => foo.Reload(string.Empty)).Returns(true);
 
-            var objectUnderTest = new ReloadCommandDirector(logdirector.Object);
+            var objectUnderTest = new ReloadCommandOnCollection(logdirector.Object);
             objectUnderTest.Commands.Add(runcommand1.Object);
             objectUnderTest.Commands.Add(runcommand2.Object);
             objectUnderTest.Reload(string.Empty);

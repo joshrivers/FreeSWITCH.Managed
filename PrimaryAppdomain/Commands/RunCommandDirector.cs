@@ -6,12 +6,12 @@ using System.Collections.ObjectModel;
 
 namespace FreeSWITCH.Managed
 {
-    public class RunCommandDirector
+    public class RunCommandOnCollection : IRunCommand
     {
         public SynchronizedList<IRunCommand> Commands { get; private set; }
         private ILogger logDirector;
 
-        public RunCommandDirector(ILogger logDirector)
+        public RunCommandOnCollection(ILogger logDirector)
         {
             this.logDirector = logDirector;
             this.Commands = new SynchronizedList<IRunCommand>();

@@ -25,17 +25,17 @@ namespace FreeSWITCH.Managed
 
         public bool Load()
         {
-            DefaultRunCommand runcommand = DefaultServiceLocator.Container.Create<DefaultRunCommand>();
-            DefaultServiceLocator.Container.Create<RunCommandDirector>().Commands.Add(runcommand);
+            RunCommandOnModuleList runcommand = DefaultServiceLocator.Container.Create<RunCommandOnModuleList>();
+            DefaultServiceLocator.Container.Create<RunCommandOnCollection>().Commands.Add(runcommand);
 
-            DefaultExecuteCommand executecommmand = DefaultServiceLocator.Container.Create<DefaultExecuteCommand>();
+            ExecuteCommandOnModuleList executecommmand = DefaultServiceLocator.Container.Create<ExecuteCommandOnModuleList>();
             DefaultServiceLocator.Container.Create<ExecuteCommandOnCollection>().Commands.Add(executecommmand);
 
             ExecuteBackgroundCommandOnModuleList executebackgroundcommmand = DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandOnModuleList>();
             DefaultServiceLocator.Container.Create<ExecuteBackgroundCommandOnCollection>().Commands.Add(executebackgroundcommmand);
 
             ReloadCommandOnModuleList reloadcommand = DefaultServiceLocator.Container.Create<ReloadCommandOnModuleList>();
-            DefaultServiceLocator.Container.Create<ReloadCommandDirector>().Commands.Add(reloadcommand);
+            DefaultServiceLocator.Container.Create<ReloadCommandOnCollection>().Commands.Add(reloadcommand);
 
             this.resolver.AttachDefaultAssemblyResolver();
 
