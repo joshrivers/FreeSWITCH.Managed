@@ -31,6 +31,7 @@ namespace FreeSWITCH.Managed
 
         // This event handler resolves the filename of the requested assembly.
         // http://support.microsoft.com/kb/837908
+        // Can this be simplified with AppDomain.CurrentDomain.AppendPrivatePath(string path)?
         private Assembly DefaultAssemblyResolver(object sender, ResolveEventArgs args)
         {
             logger.Info(string.Format("Resolving assembly '{0}'.", args.Name));

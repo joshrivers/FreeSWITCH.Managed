@@ -35,7 +35,6 @@ namespace FreeSWITCH.Managed
             if (!proxyTypes.ContainsKey(filePath.GetLoweredFileExtension())) { return; }
             Type proxyType = proxyTypes[filePath.GetLoweredFileExtension()];
 
-            DefaultAppDomainFactory appDomainFactory = new DefaultAppDomainFactory(directories);
             this.Domain = appDomainFactory.CreateAppDomain(FilePath);
 
             try

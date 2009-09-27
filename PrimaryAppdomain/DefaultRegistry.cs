@@ -33,7 +33,7 @@ namespace FreeSWITCH.Managed
             });
             registry.Register<IModuleLoader>(container =>
             {
-                return container.Create<DefaultModuleLoader>();
+                return container.Create<SelectiveModuleLoader>();
             });
             registry.Register<IAppDomainFactory>(container =>
             {

@@ -6,3 +6,5 @@ bin/*
 obj/*
 UnitTests/bin/*
 UnitTests/obj/*
+examples/ExtensionSample/WinFormLogger/bin/*
+examples/ExtensionSample/WinFormLogger/obj/*

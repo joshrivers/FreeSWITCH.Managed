@@ -59,7 +59,10 @@
     <Compile Include="Native\FSUtil.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IDefaultAppDomainFactory.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IModuleList.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\IPrimaryAppdomainExtension.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\ModuleProxyTypeDictionary.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\PrimaryDomainExtensionModuleLoader.cs" />
+    <Compile Include="PrimaryAppdomain\ModuleDirectory\SelectiveModuleLoader.cs" />
     <Compile Include="PrimaryAppdomain\Utility\AssemblyResolver.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\DefaultModuleLoader.cs" />
     <Compile Include="PrimaryAppdomain\DefaultRegistry.cs" />
