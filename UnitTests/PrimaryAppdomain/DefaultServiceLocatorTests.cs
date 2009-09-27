@@ -41,7 +41,7 @@ namespace FreeSWITCH.Managed.Tests.PrimaryAppdomain
         public void LocatorResolvesIModuleLoader()
         {
             var createdObject = DefaultServiceLocator.Container.Create<IModuleLoader>();
-            Assert.IsInstanceOf<DefaultModuleLoader>(createdObject);
+            Assert.IsInstanceOf<SelectiveModuleLoader>(createdObject);
         }
 
         [Test]
