@@ -56,6 +56,7 @@
     <Compile Include="ModuleAppdomains\IModuleAssemblyLoader.cs" />
     <Compile Include="ModuleAppdomains\IModuleProxy.cs" />
     <Compile Include="ModuleAppdomains\PluginHandlers\IPluginHandlerOrchestrator.cs" />
+    <Compile Include="Native\FSUtil.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IDefaultAppDomainFactory.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\IModuleList.cs" />
     <Compile Include="PrimaryAppdomain\ModuleDirectory\ModuleProxyTypeDictionary.cs" />

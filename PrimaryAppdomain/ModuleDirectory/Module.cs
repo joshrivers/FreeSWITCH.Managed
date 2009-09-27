@@ -7,6 +7,7 @@ using System.Reflection;
 
 namespace FreeSWITCH.Managed
 {
+
     public class Module
     {
         public string FilePath { get; private set; }
@@ -72,6 +73,7 @@ namespace FreeSWITCH.Managed
                     this.Domain = null;
                     AppDomain.Unload(d);
                     primaryLoggerContainer.Info(string.Format("Unloaded {0}, domain {1}.", this.FilePath, friendlyName));
+                    GC.WaitForPendingFinalizers();
                 }
                 catch (Exception ex)
                 {
